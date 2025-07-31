@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="graphpage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Graph Analysis</title>
+
+</head>
+<body>    
+    <main>
+    <div class="boxx">
+        <div class="grdbox">
+            <div class="boxes" style="background-color: rgb(245, 66, 135);"><div class="boxes1" style="background-color: rgb(247, 117, 167);"><i class="fa-solid fa-money-check-dollar"></i></div>
+              <div class="txtbox">Total Income<div>50000</div></div>
+            </div>
+            <div class="boxes" style="background-color: rgb(163, 39, 229);"><div class="boxes1" style="background-color: rgb(182, 109, 221);"></div>
+              <div class="txtbox">Expenses<div>3500</div></div>
+            </div>
+            <div class="boxes" style="background-color: rgb(65, 189, 242);"><div class="boxes1" style="background-color: rgb(117, 206, 245);"><i class="fa-solid fa-piggy-bank"></i></div>
+              <div class="txtbox">Savings<div>500</div></div>
+            </div>
+            <div class="boxes" style="background-color: rgb(32, 231, 211);"><div class="boxes1" style="background-color: rgb(121, 234, 223);"></div></div>
+        </div>
+
+        <div class="box2">
+            <div class="graphbox">
+                <div class="card p-4 shadow-sm">
+                <canvas id="myChart"></canvas>
+            </div>
+            </div>
+            <div class="doughbox">
+                <h2>Your Latest Expense</h2>
+                <canvas id="expenseChart" width="250" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+    datasets: [{
+      label: 'Budget ₹',
+      data: [400, 300, 500, 450, 600, 350, 480, 520, 400, 610, 470, 530],
+      borderColor: 'blue',
+      backgroundColor: 'rgba(173, 216, 230, 0.3)',
+      borderWidth: 1,
+      pointRadius: 2,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false, // ✅ Important for flexible sizing
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+
+
+      const dummyData = {
+      "2025-07-27": {
+        income: 50000,
+        savings: 10000,
+        expenses: [
+          { category: "Food", amount: 10000 },
+          { category: "Rent", amount: 15000 },
+          { category: "Utilities", amount: 5000 },
+          { category: "Travel", amount: 3000 }
+        ]
+      }
+    };
+    localStorage.setItem("budgetData", JSON.stringify(dummyData));
+
+
+
+    window.addEventListener("load", function () {
+      const canvas = document.getElementById("expenseChart");
+      if (!canvas) {
+        console.error("Canvas element not found.");
+        return;
+      }
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        console.error("2D context not found on canvas.");
+        return;
+      }
+
+      const budgetData = JSON.parse(localStorage.getItem("budgetData")) || {};
+      const dates = Object.keys(budgetData);
+      if (dates.length === 0) {
+        console.warn("No budget data found.");
+        return;
+      }
+
+      const latestDate = dates[dates.length - 1];
+      const latest = budgetData[latestDate];
+      const categoryTotals = {};
+
+      latest.expenses.forEach(({ category, amount }) => {
+        categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+      });
+
+      const labels = Object.keys(categoryTotals);
+      const data = Object.values(categoryTotals);
+
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: ["#10b981", "#0ea5e9", "#fbbf24", "#f87171", "#a78bfa"],
+            borderColor: "#fff",
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "right"
+            },
+            title: {
+              display: true,
+              text: "Your Latest Expense Distribution"
+            }
+          }
+        }
+      });
+    });
+    </script>
+</body>
+</html>

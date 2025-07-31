@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goal Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f5f9ff;
+      position: relative;
+      min-height: 100svh;
+    }
+
+   
+nav {
+  background: white;
+  box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-radius: 9999px;
+  max-width: 1440px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  max-height: 56px;
+}
+
+.logo-img {
+  height: 95px;
+  /* Controls logo size */
+  max-width: 120px;
+  /* Prevents overly wide logos */
+  object-fit: contain;
+  /* Maintains aspect ratio */
+}
+
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  padding: 0.4rem 0.25rem;
+  border-radius: 0.35rem;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: #f6f6ff;
+  color: #4c4cff;
+}
+
+nav ul li .dropdown {
+  cursor: pointer;
+}
+
+nav ul li .dropdown-content {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  padding: 0.5rem 0;
+  min-width: 140px;
+  display: none;
+  flex-direction: column;
+  z-index: 20;
+}
+
+nav ul li:hover .dropdown-content {
+  display: flex;
+}
+
+nav ul li .dropdown-content a {
+  padding: 0.5rem 1rem;
+  font-weight: 400;
+  color: #333;
+}
+
+nav ul li .dropdown-content a:hover {
+  background: #e4e4ff;
+  color: #4c4cff;
+} 
+  footer {
+  background-color: #000;
+  color: #fff;
+  padding: 50px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.footer-section h3 {
+  color: #e375ef;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+  background-color: whitesmoke;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  background-color: #dda6f6;
+  color: #000;
+}
+
+.newsletter input[type="email"] {
+  padding: 8px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.newsletter button {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: #e375ef;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.newsletter button:hover {
+  background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
+}
+
+.social-links a {
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 15px;
+  background-color: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+
+  .newsletter button,
+  .newsletter input[type="email"] {
+    font-size: 14px;
+  }
+}
+    
+    .container {
+      max-width: 1600px;
+      margin: auto;
+      padding: 0 20px;
+      /* min-height: calc(100svh - 100px); */
+    }
+    .card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .empty-state {
+      text-align: center;
+      background: #fff;
+      padding: 60px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .empty-state h1 {
+      font-size: 30px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      color: #7f8c8d;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background: #219150;
+    }
+
+    .goal-list {
+      margin-top: 40px;
+    }
+
+    .goal-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: none;
+    }
+
+    .goal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .goal-name {
+      flex: 1;
+      min-width: 150px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .goal-center {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .goal-right {
+      flex: 1;
+      min-width: 150px;
+      text-align: right;
+      font-size: 16px;
+      color: #2980b9;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      height: 14px;
+      width: 100%;
+      background: #ecf0f1;
+      border-radius: 10px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      transition: width 0.4s;
+    }
+
+    .bar-red { background: #e74c3c; }
+    .bar-yellow { background: #f1c40f; }
+    .bar-green { background: #2ecc71; }
+
+    .quote {
+      font-style: italic;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .goal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .goal-actions button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .edit-btn { background: #f39c12; color: white; }
+    .add-money-btn { background: #2980b9; color: white; }
+    .delete-btn { background: #c0392b; color: white; }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #27ae60;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .total-summary {
+      background: #dff0e8;
+      padding: 20px;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      line-height: 1.8;
+    }
+
+    @media(max-width: 768px) {
+      .goal-name, .goal-center, .goal-right {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#" class="logo">
+        <img
+          src="Screenshot_2025-07-22_211511-removebg-preview.png"
+          class="logo-img"
+        />
+      </a>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li>
+          <span class="dropdown">Features &#x25be;</span>
+          <div class="dropdown-content">
+            <a href="#">Feature 1</a>
+            <a href="#">Feature 2</a>
+            <a href="#">Feature 3</a>
+          </div>
+        </li>
+        <li>
+          <span class="dropdown">Solutions &#x25be;</span>
+          <div class="dropdown-content">
+            <a href="#">Solution 1</a>
+            <a href="#">Solution 2</a>
+          </div>
+        </li>
+        <li><a href="#">Enterprise</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="#" class="btn-login">Log in</a>
+        <a href="#" class="btn-primary">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+    <div id="emptyState" class="empty-state">
+      <h1>🎯 Let Your Dreams Take Shape</h1>
+      <p>You haven’t added any goals yet.<br>Let’s start building your dreams today.</p>
+      <button class="btn" onclick="openModal()">+ Add Your Goal</button>
+    </div>
+  </div>
+    <div id="goalList" class="goal-list"></div>
+    <button class="btn" onclick="openModal()" id="addMoreBtn" style="display:none;">+ Add Another Goal</button>
+    <div id="totalSummary" class="total-summary" style="display:none;"></div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal" id="goalModal">
+    <div class="modal-content">
+      <h3>Add Your Goal</h3>
+
+      
+
+      <input type="text" id="goalName" placeholder="Goal Name (e.g. Sofa)">
+      <input type="number" id="targetValue" placeholder="Target Amount">
+      <input type="number" id="availableAmount" placeholder="Available to Spend"><br>
+      <p>Your Current Annual Savings: ₹<span id="currentSavings">0</span></p><br>
+      <button onclick="saveGoal()">Save Goal</button>
+    </div>
+  </div>
+
+   <!-- Footer -->
+   <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Planner</a></li>
+          <li><a href="#">Tips</a></li>
+          <li><a href="#">Expense Tracker</a></li>
+          <li><a href="#">Reports</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Community Forum</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section newsletter">
+        <h3>Stay Updated</h3>
+        <input type="email" placeholder="Your email" />
+        <button>Get started</button>
+        <div class="social-links" style="margin-top: 15px">
+          <p style="margin-bottom: 8px">Follow us:</p>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy;2025 Budget Buddy Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    let goals = JSON.parse(localStorage.getItem('goals') || '[]');
+    let editIndex = null;
+    
+    const list = document.getElementById('goalList');
+    const empty = document.getElementById('emptyState');
+    const summary = document.getElementById('totalSummary');
+    const addMoreBtn = document.getElementById('addMoreBtn');
+    
+    // ✅ Always sync savings from Annual Page
+    let totalSavings = parseFloat(localStorage.getItem("totalAnnualSavings") || localStorage.getItem("annualSaved") || "0");
+    updateSavingsDisplay();
+    
+    // Show current savings on modal
+    function updateSavingsDisplay() {
+      document.getElementById('currentSavings').textContent = totalSavings.toLocaleString();
+    }
+    
+    function openModal(isEdit = false) {
+      document.getElementById('goalModal').style.display = 'flex';
+      updateSavingsDisplay();
+      if (!isEdit) {
+        document.getElementById('goalName').value = '';
+        document.getElementById('targetValue').value = '';
+        document.getElementById('availableAmount').value = '';
+        editIndex = null;
+      }
+    }
+    
+    function closeModal() {
+      document.getElementById('goalModal').style.display = 'none';
+      editIndex = null;
+    }
+    
+    window.onclick = (e) => {
+      if (e.target.id === 'goalModal') closeModal();
+    }
+    
+    function saveGoal() {
+      const name = document.getElementById('goalName').value.trim();
+      const target = parseFloat(document.getElementById('targetValue').value);
+      const available = parseFloat(document.getElementById('availableAmount').value);
+    
+      if (!name || isNaN(target) || isNaN(available)) return alert("Please fill all fields.");
+    
+      // Prevent duplicate goals (case-insensitive)
+      if (editIndex === null && goals.some(g => g.name.toLowerCase() === name.toLowerCase())) {
+        return alert("🚫 A goal with this name already exists.");
+      }
+    
+      // Check savings availability
+      if (available > totalSavings) {
+        alert(`❌ You exceeded your savings.\nAvailable Savings: ₹${totalSavings}`);
+        return;
+      }
+    
+      if (editIndex !== null) {
+        // Editing existing goal
+        let diff = available - goals[editIndex].available;
+        if (diff > totalSavings) {
+          alert("❌ Not enough savings to increase this goal allocation.");
+          return;
+        }
+        totalSavings -= diff;
+        goals[editIndex] = { name, target, available };
+      } else {
+        // Adding new goal
+        goals.push({ name, target, available });
+        totalSavings -= available;
+      }
+    
+      localStorage.setItem("totalAnnualSavings", totalSavings);
+      saveAndRender();
+      closeModal();
+    }
+    
+    function saveAndRender() {
+      localStorage.setItem("goals", JSON.stringify(goals));
+      renderGoals();
+    }
+    
+    function renderGoals() {
+      list.innerHTML = "";
+      if (goals.length === 0) {
+        empty.style.display = "block";
+        summary.style.display = "none";
+        addMoreBtn.style.display = "none";
+        return;
+      }
+    
+      empty.style.display = "none";
+      addMoreBtn.style.display = "block";
+    
+      let totalTarget = 0, totalAllocated = 0;
+    
+      goals.forEach((g, i) => {
+        const percent = Math.min((g.available / g.target) * 100, 100);
+        const remaining = g.target - g.available;
+        let barClass = percent >= 90 ? "bar-green" : percent >= 50 ? "bar-yellow" : "bar-red";
+    
+        const card = document.createElement("div");
+        card.className = "goal-card";
+        card.innerHTML = `
+          <div class="goal-top">
+            <div class="goal-name">${g.name}</div>
+            <div class="goal-center">🎯 Target: ₹${g.target}</div>
+            <div class="goal-right">💰 Allocated: ₹${g.available}</div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill ${barClass}" style="width:${percent}%"></div>
+          </div>
+          <div class="quote">${getQuote(percent)}</div>
+          ${remaining > 0 ? `<div>📉 Remaining: ₹${remaining}</div>` : ""}
+          <div class="goal-actions">
+            <button class="add-money-btn" onclick="addMoney(${i})">+ Add</button>
+            <button class="edit-btn" onclick="editGoal(${i})">Edit</button>
+            <button class="delete-btn" onclick="deleteGoal(${i})">Delete</button>
+          </div>
+        `;
+        list.appendChild(card);
+    
+        totalTarget += g.target;
+        totalAllocated += g.available;
+      });
+    
+      summary.style.display = "block";
+      summary.innerHTML = `
+        📊 <strong>Total Summary</strong><br><br>
+        🎯 Total Target: ₹${totalTarget} <br>
+        💰 Total Allocated: ₹${totalAllocated} <br>
+        ⏳ Remaining Funds: ₹${totalSavings}
+      `;
+      updateSavingsDisplay();
+    }
+    
+    function getQuote(p) {
+      if (p === 100) return "✅ Goal achieved!";
+      if (p > 75) return "🌟 Almost there!";
+      if (p > 40) return "💪 Keep it going!";
+      return "🚀 Just getting started!";
+    }
+    
+    function addMoney(i) {
+      const amt = parseFloat(prompt("Add amount:"));
+      if (!isNaN(amt) && amt > 0) {
+        if (amt > totalSavings) {
+          alert(`❌ You exceeded your savings.\nAvailable Savings: ₹${totalSavings}`);
+          return;
+        }
+        goals[i].available += amt;
+        totalSavings -= amt;
+        localStorage.setItem("totalAnnualSavings", totalSavings);
+        if (goals[i].available >= goals[i].target) {
+          alert("🎉 Goal reached!");
+        }
+        saveAndRender();
+      }
+    }
+    
+    function editGoal(i) {
+      const g = goals[i];
+      document.getElementById('goalName').value = g.name;
+      document.getElementById('targetValue').value = g.target;
+      document.getElementById('availableAmount').value = g.available;
+      editIndex = i;
+      openModal(true);
+    }
+    
+    function deleteGoal(i) {
+      if (confirm("Delete this goal? Funds will return to savings.")) {
+        totalSavings += goals[i].available;
+        goals.splice(i, 1);
+        localStorage.setItem("totalAnnualSavings", totalSavings);
+        saveAndRender();
+      }
+    }
+    
+    renderGoals();
+    </script>
+    
+  </body>
+</html>

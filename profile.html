@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Side Menu</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+  <div class="profile-btn" onclick="toggleSidebar()">
+    <img src="user-circles-set.png" alt="Profile Icon">
+  </div>
+  <div class="sidebar" id="sidebar">
+    <div class="username">JohnDoe</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+  <div class="over" id="over" onclick="toggleSidebar()"></div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const over = document.getElementById('over');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    function logout() {
+      alert("You have been logged out.");
+      toggleSidebar();
+    }
+  </script>
+
+</body>
+
+</html>

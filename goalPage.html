@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goal Setting Page</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        /* background: linear-gradient(135deg, #e0f7fa, #f1f8e9); */
+        background: linear-gradient(
+          90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%
+        );
+
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* header {
+      background-color: header;
+      padding: 1rem 2rem;
+      text-align: center;
+      color: white;
+      font-size: 1.75rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px var(--shadow);
+    } */
+/* Navigation styles */
+nav {
+  background: white;
+  box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-radius: 9999px;
+  max-width: 1440px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  max-height: 56px;
+}
+
+.logo-img {
+  height: 95px;
+  /* Controls logo size; */
+  max-width: 120px;
+  /* Prevents overly wide logos */
+  object-fit: contain;
+  /* Maintains aspect ratio */
+}
+
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  padding: 0.4rem 0.25rem;
+  border-radius: 0.35rem;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: #f6f6ff;
+  color: #4c4cff;
+}
+
+nav ul li .dropdown {
+  cursor: pointer;
+}
+
+nav ul li .dropdown-content {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  padding: 0.5rem 0;
+  min-width: 140px;
+  display: none;
+  flex-direction: column;
+  z-index: 20;
+}
+
+nav ul li:hover .dropdown-content {
+  display: flex;
+}
+
+nav ul li .dropdown-content a {
+  padding: 0.5rem 1rem;
+  font-weight: 400;
+  color: #333;
+}
+
+nav ul li .dropdown-content a:hover {
+  background: #e4e4ff;
+  color: #4c4cff;
+}
+
+    /* footer {
+      text-align: center;
+      padding: 1rem;
+      background: var(--primary);
+      color: black;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    } */
+    .btn-primary {
+  background: #000000;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: #222222;
+}
+.btn-login {
+  font-weight: 600;
+  color: black;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+    footer {
+  background-color: #000;
+  color: #fff;
+  padding: 50px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.footer-section h3 {
+  color: #e375ef;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+  background-color: whitesmoke;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  background-color: #dda6f6;
+  color: #000;
+}
+
+.newsletter input[type="email"] {
+  padding: 8px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.newsletter button {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: #e375ef;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.newsletter button:hover {
+  background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
+}
+
+.social-links a {
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 15px;
+  background-color: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+
+  .newsletter button,
+  .newsletter input[type="email"] {
+    font-size: 14px;
+  }
+}
+
+    .container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        padding: 30px;
+    }
+
+    .card {
+        background: white;
+        width: 350px;
+        height: 300px; 
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        /* opacity: 0.5; */
+        box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        /* background: linear-gradient(145deg, #f8fff4, #eafff6); */
+    }
+
+    .card h2 {
+        color:black;
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+
+    .tagline {
+        font-size: 1.2em;
+        color: #555;
+        padding: 0 10px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <!-- 🎯 Goal Setting Dashboard -->
+    <nav>
+        <a href="#" class="logo">
+          <img
+            src="Screenshot_2025-07-22_211511-removebg-preview.png"
+            class="logo-img"
+          />
+        </a>
+        <ul>
+          <li><a href="#" class="active">Home</a></li>
+          <li>
+            <span class="dropdown">Features &#x25be;</span>
+            <div class="dropdown-content">
+              <a href="#">Feature 1</a>
+              <a href="#">Feature 2</a>
+              <a href="#">Feature 3</a>
+            </div>
+          </li>
+          <li>
+            <span class="dropdown">Solutions &#x25be;</span>
+            <div class="dropdown-content">
+              <a href="#">Solution 1</a>
+              <a href="#">Solution 2</a>
+            </div>
+          </li>
+          <li><a href="#">Enterprise</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <a href="#" class="btn-login">Log in</a>
+          <a href="#" class="btn-primary">Sign Up</a>
+        </div>
+      </nav>
+    
+</header>
+
+  
+<div class="container">
+
+    <!-- Monthly Goal Setter -->
+    <div class="card" onclick="location.href='Monthinput.html'">
+        <h2> Monthly Goal Setter</h2>
+<p class="tagline">Plan smart, track easily, and achieve more—month by month.</p>
+
+    </div>
+
+    <!-- Annual Goal Setter -->
+    <div class="card" onclick="location.href='MonthAnnualDummy.html'">
+        <h2>Annual Goal Setter</h2>
+        <p class="tagline">Plan your yearly achievements easily.</p>
+    </div>
+
+    <!-- Goal to Buy Products -->
+    <div class="card" onclick="location.href='AnnualPurchase.html'">
+        <h2 > Dream Purchase Goals</h2>
+        <p class="tagline">From gadgets to goals—track, save, and own your dreams.</p>
+    </div>
+
+</div>
+
+<!-- <footer>
+    © 2025 Goal Planner | Designed by You
+</footer> -->
+<footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Planner</a></li>
+          <li><a href="#">Tips</a></li>
+          <li><a href="#">Expense Tracker</a></li>
+          <li><a href="#">Reports</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Community Forum</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section newsletter">
+        <h3>Stay Updated</h3>
+        <input type="email" placeholder="Your email" />
+        <button>Get started</button>
+        <div class="social-links" style="margin-top: 15px">
+          <p style="margin-bottom: 8px">Follow us:</p>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy;2025 Budget Buddy Inc. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Budget Buddy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+
+<body>
+    <div class="gradient-container">
+        <div class="blur-circle blue-green" aria-hidden="true"></div>
+        <div class="blur-circle lime-green" aria-hidden="true"></div>
+    </div>
+
+
+    <!-- <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open sidebar">
+        <i class="fas fa-bars"></i>
+    </button> -->
+
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="logoForSidebarmenue.png" alt="Budget Buddy logo">
+                <span>Budget Buddy</span>
+            </div>
+            <button class="close-btn" id="closeSidebarBtn" aria-label="Close sidebar">&times;</button>
+        </div>
+        <div class="sidebar-menu">
+            <a href="./index.html" class=""><i class="fas fa-home"></i>Home</a>
+            <a href="./goalPage.html"><i class="fas fa-chart-line"></i>Goal</a>
+            <a href="./graphpage.html"><i class="fas fa-wallet"></i>Graph</a>
+            <a href="./inputPage6.html"><i class="fas fa-calendar-alt"></i>Input</a>
+            <a href="./calendarfinal.html"><i class="fas fa-lightbulb"></i>Calender</a>
+        </div>
+    </aside>
+
+    <nav>
+        <div class="menueInNaveBar">
+
+            <div class="sidebarIcon" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <a href="#" class="logo">
+                <img src="Screenshot_2025-07-22_211511-removebg-preview&#46;png" class="logo-img">
+            </a>
+            <ul>
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li><a href="./goalPage.html">Goal</a></li>
+                <li><a href="./graphpage.html">Graph</a></li>
+                <li><a href="./inputPage6.html">Input</a></li>
+                <li><a href="./calendarfinal.html">Calender</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="login.html?form=login" class="btn-login">Log in</a>
+                <a href="login.html?form=register" class="btn-primary">Sign Up</a>
+            </div>
+
+            <div class="profile-icon hidden" id="profileIcon">
+                <a href="profile.html" title="Profile">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <main>
+        <div class="bbgmain">
+            <div class="bg-blocks">
+                <div class="bottom-left"></div>
+                <div class="middle-left"></div>
+                <div class="bottom-right"></div>
+                <div class="middle-right"></div>
+            </div>
+
+            <div class="informationINHOMEPage">
+                <h1><span class="highlight">Simplify</span> Expense Management for You and Your Budget</h1>
+                <p class="description">Take control of your money—track spending, set goals, and achieve financial
+                    freedom with ease.</p>
+
+                <button class="btn-primary">Budgeting your money is the key to having enough</button>
+                <p class="email-note">Test your budget progress from now</p>
+
+            </div>
+        </div>
+
+
+        <div class="options_Features">
+            <div class="Track">
+                <div class="text block">
+                    <h2>Track your spending</h2>
+                    <p>Monitor daily&#44; weekly&#44; and monthly expenses in real&#8209;time with clear visual
+                        breakdowns and
+                        categories&#46;
+                        Discover trends and opportunities to save more without sacrificing needs</p>
+                    <div class="btn-grad">know More&nbsp;&#x2192;</div>
+                </div>
+                <div class="img_FORtrack_your_spending block">
+                    <img src="imgFORtrack_your_spending&#46;png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="options_Features">
+            <div class="Track">
+                <div class="img_FORtrack_your_spending block">
+                    <img src="3d-illustration-man-flying-catch-golden-coin-business-graph-rendering&#46;png" alt="">
+                </div>
+                <div class="text block">
+                    <h2>Set Financial Goals</h2>
+                    <p>Create&#44; track&#44; and achieve savings goals—whether it's for a vacation&#44; emergency
+                        fund&#44; or debt
+                        repayment&#46;
+                        Get reminders and adapt your strategy as needed&#46;</p>
+                    <div class="btn-grad">know More&nbsp;&#x2192;</div>
+                </div>
+            </div>
+        </div>
+        <div class="options_Features">
+            <div class="Track">
+                <div class="text block">
+                    <h2>Smart Budgeting</h2>
+                    <p>Create personalized monthly budgets that adjust based on your spending habits and notify you as
+                        you near limits&#46;</p>
+                    <div class="btn-grad">know More&nbsp;&#x2192;</div>
+                </div>
+                <div class="img_FORtrack_your_spending block">
+                    <img src="Smart_budgeting&#46;png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="options_Features">
+            <div class="Track">
+                <div class="img_FORtrack_your_spending block">
+                    <img src="financial-audit-concept&#46;png" alt="">
+                </div>
+                <div class="text block">
+                    <h2>Real-Time Expense Tracking</h2>
+                    <p>Link accounts and let Financer automatically track and categorize spending with live visual
+                        dashboards&#46;</p>
+                    <div class="btn-grad">know More &nbsp;&#x2192;</div>
+                </div>
+            </div>
+        </div>
+        <div class="options_Features">
+            <div class="Track">
+                <div class="text block">
+                    <h2>Bill Reminders</h2>
+                    <p>Set up reminders for utilities&#44; subscriptions&#44; or credit cards so you never miss a due
+                        date
+                        again&#46;</p>
+                    <div class="btn-grad">know More&nbsp;&#x2192;</div>
+                </div>
+                <div class="img_FORtrack_your_spending block">
+                    <img src="purple-calendar-clock-icon-3d-reminder-notification-concept-website-ui-purple-background-3d-rendering-&#46;png"
+                        alt="">
+                </div>
+            </div>
+        </div>
+        <div class="options_Features">
+            <div class="Track">
+                <div class="img_FORtrack_your_spending block">
+                    <img src="briefcase-with-bullseye-document-business-aim-monitoring-icon-isolated&#46;png" alt="">
+                </div>
+                <div class="text block">
+                    <h2>Goal-Based Saving</h2>
+                    <p>Save for a vacation or gadget with visual goal trackers and automation to help build habits
+                        easily&#46;</p>
+                    <div class="btn-grad">know More &nbsp;&#x2192;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="options_Features">
+            <div class="Track">
+                <div class="text block">
+                    <h2>Secure & Private</h2>
+                    <p>Your data is encrypted and safe&#46; We never sell your information and follow industry-grade
+                        security practices&#46;</p>
+                    <div class="btn-grad">know More &nbsp;&#x2192;</div>
+                </div>
+                <div class="img_FORtrack_your_spending block">
+                    <img src="3d-hand-using-online-banking-app-smartphone&#46;png" alt="">
+                </div>
+
+            </div>
+        </div>
+
+        <section class="security_Assurance_Banner">
+            <div class="inner_chooseus">
+
+                <div class="left_Security">
+                    <div class="header">Why Choose Budget Buddy&#63;</div>
+                    <div class="options">
+
+                        <div class="firstOp">
+                            <div class="iconINleft"><i class="ph ph-shield-check"></i></div>
+                            <div class="optionsHeadings">
+                                <h2>Bank-Level Security</h2>
+                                <p>Your financial data is protected with enterprise-grade encryption and safety
+                                    protocols&#46;</p>
+                            </div>
+                        </div>
+
+                        <div class="firstOp">
+                            <div class="iconINleft"><i class="ph ph-user-circle-gear"></i></div>
+                            <div class="optionsHeadings">
+                                <h2>Easy to Use</h2>
+                                <p>Our platform is intuitive and designed for all users—no experience required&#46;</p>
+                            </div>
+                        </div>
+
+                        <div class="firstOp">
+                            <div class="iconINleft"><i class="ph ph-graph"></i></div>
+                            <div class="optionsHeadings">
+                                <h2>Smart Budget Tools</h2>
+                                <p>Track expenses&#44; set savings goals&#44; and get real-time financial insights&#46;
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="firstOp">
+                            <div class="iconINleft"><i class="ph ph-currency-circle-dollar"></i></div>
+                            <div class="optionsHeadings">
+                                <h2>No Hidden Fees</h2>
+                                <p>We offer transparent pricing—what you see is what you pay&#46;</p>
+                            </div>
+                        </div>
+
+                        <div class="firstOp">
+                            <div class="iconINleft"><i class="ph ph-headset"></i></div>
+                            <div class="optionsHeadings">
+                                <h2>24/7 Support</h2>
+                                <p>Our friendly support team is here for you any time&#44; day or night&#46;</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="rightPIcOFChooseUs">
+                    <img src="customer-experience-creative-collage&#46;jpg" alt="Financial Planning">
+                </div>
+
+            </div>
+        </section>
+
+
+
+        <h1>Articles&#46;&#46;&#46;&#46;&#46;</h1>
+
+        <div class="card-container">
+            <div class="card">
+                <h2>Spend Smarter&#44; Not Harder</h2>
+                <img src="Spend_smarter&#46;jpg" alt="Track Spending" />
+                <p>
+                    Make intentional purchases and avoid emotional spending by learning to separate needs from
+                    wants&#46;
+                </p>
+                <!-- <p>Discover trends and opportunities to save more without sacrificing needs&#46;</p> -->
+                <button class="btn-grad"><a href="Article1&#46;html">Know More&nbsp;&#x2192;</a></button>
+            </div>
+            <div class="card">
+                <h2>Budgeting Made Simple with the 50-30-20 Rule</h2>
+                <img src="Budget_rule&#46;jpg" alt="Set Goals" />
+                <p>
+                    Break down your income into essentials&#44; savings&#44; and lifestyle spending with this
+                    easy-to-follow
+                    method&#46;
+                </p>
+                <!-- <p>Get reminders and adapt your strategy as needed&#46;</p> -->
+                <button class="btn-grad"><a href="A2&#46;html">Know More&nbsp;&#x2192;</a></button>
+            </div>
+            <div class="card">
+                <h2>The Art of Smart Grocery Shopping</h2>
+                <img src="Smart_shopping&#46;jpg" alt="Smart Budgeting" />
+                <p>
+                    Save money on groceries by planning meals&#44; using lists&#44; and avoiding common shopping
+                    traps&#46;
+                </p>
+                <div class="btn-grad"><a href="A3&#46;html">know More &nbsp;&#x2192;</a></div>
+            </div>
+            <div class="card">
+                <h2>Monthly Budget Planning: Your First Step to Freedom</h2>
+                <img src="Financial-Freedom&#46;jpg" alt="Expense Tracking" />
+                <p>
+                    Take control of your finances by creating a monthly plan that balances spending&#44; saving&#44; and
+                    joy&#46;
+                </p>
+                <div class="btn-grad"><a href="A4&#46;html">know More &nbsp;&#x2192;</a></div>
+            </div>
+
+            <div class="card">
+                <h2>How to Avoid Overspending on Subscriptions & Apps</h2>
+                <img src="Subscriptions&#46;jpg" alt="Bill Reminders" />
+                <p>
+                    Audit and cancel unused services to stop silent drains on your money every month&#46;
+                </p>
+                <div class="btn-grad"><a href="A5&#46;html">know More &nbsp;&#x2192;</a></div>
+            </div>
+
+            <div class="card">
+                <h2>Why You Need an Emergency Fund Before You Shop</h2>
+                <img src="Emergency&#46;jpg" alt="Goal Based Saving" />
+                <p>
+                    Build a safety cushion to handle surprises so your shopping habits don't turn into stress later&#46;
+                </p>
+                <div class="btn-grad"><a href="A6&#46;html">know More &nbsp;&#x2192;</a></div>
+            </div>
+        </div>
+        <div class="FAQsection">
+            <section class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is Budget Buddy&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Budget Buddy is a personal finance tool that helps you track spending&#44; set savings
+                        goals&#44; and
+                        manage budgets with ease&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is Budget Buddy free to use&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes! Budget Buddy offers a free plan with core features and premium options for more advanced
+                        tools&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I link my bank account to Budget Buddy&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Absolutely&#46; You can securely link your bank accounts to automatically import and categorize
+                        your
+                        transactions&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is my financial data safe&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes&#44; we use bank-level encryption and never share your data with third parties&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I use Budget Buddy on mobile&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes&#44; Budget Buddy is available on both iOS and Android for managing your finances on the
+                        go&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Does it support multiple currencies&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes&#44; Budget Buddy supports all major currencies for international users&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I share my budget with family members&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes&#44; you can invite others to join your budget group and manage finances together&#46;
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I cancel my subscription&#63;
+                        <span class="icon">&#43;</span>
+                    </button>
+                    <div class="faq-answer">
+                        You can cancel your subscription anytime from your account settings&#46; No questions asked&#46;
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <div class="footer-container_1">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="#"
+                            onclick="showPopup('Home', 'Welcome to Budget Buddy – your personal financial assistant!')">Home</a>
+                    </li>
+                    <li><a href="#"
+                            onclick="showPopup('Planner', 'Plan your monthly and yearly budget with smart tools and tips.')">Planner</a>
+                    </li>
+                    <li><a href="#"
+                            onclick="showPopup('Tips', 'Browse budgeting tips, tricks, and money-saving strategies.')">Tips</a>
+                    </li>
+                    <li><a href="#"
+                            onclick="showPopup('Expense Tracker', 'Track your spending habits and categorize expenses efficiently.')">Expense
+                            Tracker</a></li>
+                    <li><a href="#"
+                            onclick="showPopup('Reports', 'View summaries, visual charts, and spending analytics.')">Reports</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#"
+                            onclick="showPopup('Help Center', 'Find FAQs, documentation, and self-help guides.')">Help
+                            Center</a></li>
+                    <li><a href="#"
+                            onclick="showPopup('Contact Us', 'Need help? Reach out to our support team.')">Contact
+                            Us</a></li>
+                    <li><a href="#"
+                            onclick="showPopup('Community Forum', 'Join discussions, share tips, and get peer advice.')">Community
+                            Forum</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#"
+                            onclick="showPopup('Privacy Policy', 'Understand how we collect and protect your data.')">Privacy
+                            Policy</a></li>
+                    <li><a href="#"
+                            onclick="showPopup('Terms & Conditions', 'Review the rules and agreements for using our service.')">Terms
+                            & Conditions</a></li>
+                    <li><a href="#"
+                            onclick="showPopup('Disclaimer', 'Read the disclaimer about financial advice.')">Disclaimer</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-section newsletter">
+                <h3>Stay Updated</h3>
+                <input type="email" placeholder="Your email">
+                <button>Get started</button>
+                <div class="social-links" style="margin-top: 15px;">
+                    <p style="margin-bottom: 8px;">Follow us:</p>
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-container_2">
+            <div class="footer_section_first">
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Home', 'Welcome to Budget Buddy – your personal financial assistant!')">Home</a>
+                        </li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Planner', 'Plan your monthly and yearly budget with smart tools and tips.')">Planner</a>
+                        </li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Tips', 'Browse budgeting tips, tricks, and money-saving strategies.')">Tips</a>
+                        </li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Expense Tracker', 'Track your spending habits and categorize expenses efficiently.')">Expense
+                                Tracker</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Reports', 'View summaries, visual charts, and spending analytics.')">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Help Center', 'Find FAQs, documentation, and self-help guides.')">Help
+                                Center</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Contact Us', 'Need help? Reach out to our support team.')">Contact
+                                Us</a>
+                        </li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Community Forum', 'Join discussions, share tips, and get peer advice.')">Community
+                                Forum</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Privacy Policy', 'Understand how we collect and protect your data.')">Privacy
+                                Policy</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Terms & Conditions', 'Review the rules and agreements for using our service.')">Terms
+                                & Conditions</a></li>
+                        <li><a href="javascript:void(0)"
+                                onclick="showPopup('Disclaimer', 'Read the disclaimer about financial advice.')">Disclaimer</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-section newsletter">
+                    <h3>Stay Updated</h3>
+                    <input type="email" placeholder="Your email">
+                    <button>Get started</button>
+                    <div class="social-links" style="margin-top: 15px;">
+                        <p style="margin-bottom: 8px;">Follow us:</p>
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2025 Budget Buddy Inc&#46; All rights reserved&#46;
+        </div>
+
+        <!-- Popup Modal -->
+        <div class="popup" id="popup">
+            <div class="popup-box">
+                <h2 id="popup-title"></h2>
+                <p id="popup-description"></p>
+                <button onclick="closePopup()">Close</button>
+            </div>
+        </div>
+
+        <!-- Scroll to Top Button -->
+        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" class="scroll-btn"
+            title="Back to top">&#8593;</button>
+    </footer>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

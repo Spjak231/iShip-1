@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Goal</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        /* background: linear-gradient(to right, #f5e6ff, #f9f9f9); */
+        background: linear-gradient(
+          90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%
+        );
+
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    /* Navigation styles */
+nav {
+  background: white;
+  box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-radius: 9999px;
+  max-width: 1440px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  max-height: 56px;
+}
+
+.logo-img {
+  height: 95px;
+  /* Controls logo size */
+  max-width: 120px;
+  /* Prevents overly wide logos */
+  object-fit: contain;
+  /* Maintains aspect ratio */
+}
+
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  color: black;
+  text-decoration: none;
+  padding: 0.4rem 0.25rem;
+  border-radius: 0.35rem;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: #f6f6ff;
+  color: #4c4cff;
+}
+
+nav ul li .dropdown {
+  cursor: pointer;
+}
+
+nav ul li .dropdown-content {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  padding: 0.5rem 0;
+  min-width: 140px;
+  display: none;
+  flex-direction: column;
+  z-index: 20;
+}
+
+nav ul li:hover .dropdown-content {
+  display: flex;
+}
+
+nav ul li .dropdown-content a {
+  padding: 0.5rem 1rem;
+  font-weight: 400;
+  color: #333;
+}
+
+nav ul li .dropdown-content a:hover {
+  background: #e4e4ff;
+  color: #4c4cff;
+}
+  
+.btn-primary {
+  background: #000000;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.5rem 1.5rem;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+.btn-login {
+  font-weight: 600;
+  color: black;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.btn-primary:hover {
+  background: #222222;
+}
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 50px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.footer-section h3 {
+  color: #e375ef;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+  background-color: whitesmoke;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  background-color: #dda6f6;
+  color: #000;
+}
+
+.newsletter input[type="email"] {
+  padding: 8px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.newsletter button {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: #e375ef;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.newsletter button:hover {
+  background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
+}
+
+.social-links a {
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 15px;
+  background-color: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+
+  .newsletter button,
+  .newsletter input[type="email"] {
+    font-size: 14px;
+  }
+}
+    .main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    /* ===== Track Goal Container ===== */
+    .container {
+        background-color: white;
+        border-radius: 20px;
+        width: 750px;
+        min-height: 500px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        overflow: hidden;
+        padding-bottom: 25px;
+        transition: transform 0.3s ease;
+    }
+
+    .header-box {
+        background: linear-gradient(to right, #e8d9f5, #f2e6ff);
+        padding: 18px;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 2px solid #d3c4e3;
+    }
+
+    .goal-section {
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        align-items: center;
+    }
+    input[type="number"] {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        width: 180px;
+        text-align: center;
+        font-size: 15px;
+    }
+    button {
+        background-color: #d96bd3;
+        border: none;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background 0.3s;
+    }
+    button:hover {
+        background-color: #b84bb3;
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 25px;
+        flex-wrap: wrap;
+    }
+    .circle-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Circle with thick border (donut style) */
+    .circle {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: conic-gradient(green 0% 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    }
+    .circle::before {
+        content: "";
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        background: white;
+        border-radius: 50%;
+    }
+    .circle span {
+        position: relative;
+        font-weight: bold;
+        color: #6b1f87;
+        text-align: center;
+        font-size: 16px;
+    }
+    .percent-label {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .details {
+        padding: 0px 15px 15px;
+        font-size: 17px;
+    }
+    .legend {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 5px 10px;
+        font-size: 15px;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+    }
+    .green { background: green; }
+    .red { background: red; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <nav>
+        <a href="#" class="logo">
+          <img
+            src="Screenshot_2025-07-22_211511-removebg-preview.png"
+            class="logo-img"
+          />
+        </a>
+        <ul>
+          <li><a href="#" class="active">Home</a></li>
+          <li>
+            <span class="dropdown">Features &#x25be;</span>
+            <div class="dropdown-content">
+              <a href="#">Feature 1</a>
+              <a href="#">Feature 2</a>
+              <a href="#">Feature 3</a>
+            </div>
+          </li>
+          <li>
+            <span class="dropdown">Solutions &#x25be;</span>
+            <div class="dropdown-content">
+              <a href="#">Solution 1</a>
+              <a href="#">Solution 2</a>
+            </div>
+          </li>
+          <li><a href="#">Enterprise</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <a href="#" class="btn-login">Log in</a>
+          <a href="#" class="btn-primary">Sign Up</a>
+        </div>
+      </nav>
+    
+</header>
+<!-- MAIN CONTENT -->
+<div class="main">
+<div class="container">
+    <div class="header-box">Track Your Monthly Goal</div>
+    
+    <div class="goal-section" id="goal-section">
+        <label>Goal ₹:</label>
+        <input type="number" id="goalInput" placeholder="Enter goal">
+        <button id="submitBtn" onclick="setGoal()">Submit</button>
+    </div>
+    
+    <div class="content">
+        <div class="circle-container">
+            <div id="circle" class="circle">
+                <span>Savings Progress</span>
+            </div>
+            <div class="percent-label">Achieved Percent: <span id="progressPercent">100%</span></div>
+        </div>
+        <div class="details" id="details">
+            <p><strong>Monthly Income:</strong> ₹<span id="salary"></span></p>
+            <p><strong>Spending:</strong> ₹<span id="spending"></span></p>
+            <p><strong>Saved Amount:</strong> ₹<span id="saved"></span></p>
+
+            <p> <strong>Need to save :</strong>₹<span id="needToSave-section">—</span> </p>
+
+            <p id="statusMsg" style="color: green;">Enter goal to track savings.</p>
+        </div>
+    </div>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <span class="dot green"></span> Goal Reached
+        </div>
+        <div class="legend-item">
+            <span class="dot red"></span> Need to Save
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Planner</a></li>
+          <li><a href="#">Tips</a></li>
+          <li><a href="#">Expense Tracker</a></li>
+          <li><a href="#">Reports</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Community Forum</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section newsletter">
+        <h3>Stay Updated</h3>
+        <input type="email" placeholder="Your email" />
+        <button>Get started</button>
+        <div class="social-links" style="margin-top: 15px">
+          <p style="margin-bottom: 8px">Follow us:</p>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy;2025 Budget Buddy Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const storedIncome = parseFloat(localStorage.getItem("income")) || 0;
+  
+    let totalExpenses = 0;
+    const expensesJSON = localStorage.getItem("expenses");
+  
+    if (expensesJSON) {
+      try {
+        const expensesArray = JSON.parse(expensesJSON);
+        totalExpenses = expensesArray.reduce((sum, item) => {
+          const amount = parseFloat(item.amount);
+          return sum + (isNaN(amount) ? 0 : amount);
+        }, 0);
+      } catch (e) {
+        console.error("Failed to parse expenses:", e);
+      }
+    }
+  
+    document.getElementById("salary").textContent = storedIncome.toLocaleString();
+    document.getElementById("spending").textContent = totalExpenses.toLocaleString();
+  
+    // 👉 Replacing calculated savedAmount with actual savings value
+    const savedAmount = parseFloat(localStorage.getItem("savings")) || 0;
+    document.getElementById("saved").textContent = savedAmount.toLocaleString();
+  
+    function renderGoal(goalAmount) {
+      let goalSection = document.getElementById("goal-section");
+  
+      if (!document.getElementById("goalDisplay")) {
+        let goalDisplay = document.createElement("span");
+        goalDisplay.textContent = `₹${goalAmount.toLocaleString()}`;
+        goalDisplay.style.fontWeight = "bold";
+        goalDisplay.id = "goalDisplay";
+        goalSection.appendChild(goalDisplay);
+      }
+  
+      let needToSave = goalAmount - savedAmount;
+      let needToSaveSection = document.getElementById("needToSave-section");
+      needToSaveSection.textContent =
+        needToSave > 0
+          ? ` ₹${needToSave.toLocaleString()}.`
+          : "Goal Accomplished 🎉";
+  
+      let percent = Math.min((savedAmount / goalAmount) * 100, 100).toFixed(0);
+      document.getElementById("progressPercent").textContent = percent + "%";
+      document.getElementById("circle").style.background = `conic-gradient(green 0% ${percent}%, red ${percent}% 100%)`;
+  
+      let statusMsg = document.getElementById("statusMsg");
+      if (savedAmount >= goalAmount) {
+        statusMsg.textContent = "🎉 Great! You've achieved your goal!";
+        statusMsg.style.color = "green";
+      } else {
+        statusMsg.textContent = "Keep saving to reach your goal!";
+        statusMsg.style.color = "red";
+      }
+  
+      addResetButton();
+    }
+  
+    function setGoal() {
+      let goalInput = document.getElementById("goalInput");
+      let submitBtn = document.getElementById("submitBtn");
+      let goalAmount = parseInt(goalInput.value);
+  
+      if (!goalAmount || goalAmount <= 0) {
+        alert("Please enter a valid goal amount.");
+        return;
+      }
+  
+      localStorage.setItem("monthlyGoal", goalAmount);
+      submitBtn.style.display = "none";
+      goalInput.style.display = "none";
+  
+      renderGoal(goalAmount);
+    }
+  
+    function addResetButton() {
+      let goalSection = document.getElementById("goal-section");
+      if (!document.getElementById("resetBtn")) {
+        let resetBtn = document.createElement("button");
+        resetBtn.textContent = "Reset";
+        resetBtn.id = "resetBtn";
+        resetBtn.style.backgroundColor = "#999";
+        resetBtn.style.marginLeft = "10px";
+        resetBtn.onclick = function () {
+          localStorage.removeItem("monthlyGoal");
+          location.reload();
+        };
+        goalSection.appendChild(resetBtn);
+      }
+    }
+  
+    window.onload = function () {
+      let savedGoal = localStorage.getItem("monthlyGoal");
+      if (savedGoal) {
+        document.getElementById("goalInput").style.display = "none";
+        document.getElementById("submitBtn").style.display = "none";
+        renderGoal(parseInt(savedGoal));
+      }
+    };
+  
+    // ✅ Store updated values
+    localStorage.setItem("monthlySavedAmount", savedAmount.toString());
+    localStorage.setItem("monthlyExpenses", totalExpenses.toString());
+  </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Buddy - Simple Sidebar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* -- Global Resets -- */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6f7fc;
+        }
+
+        /* -- Mobile Menu Btn -- */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1101;
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .09);
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .mobile-menu-btn:hover {
+            background: #6d28d9;
+        }
+
+        /* -- Sidebar -- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 260px;
+            height: 100vh;
+            background: linear-gradient(170deg, #4f46e5 0%, #7c3aed 100%);
+            color: #fff;
+            box-shadow: 4px 0 16px rgba(44, 16, 112, 0.08);
+            transition: left 0.3s cubic-bezier(.7, .3, .3, 1);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 20px 10px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-logo img {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .15);
+            object-fit: cover;
+        }
+
+        .sidebar-logo span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: .3px;
+        }
+
+        .sidebar-menu {
+            flex: 1 1 auto;
+            padding: 18px 0 0 0;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.99rem;
+            padding: 10px 28px;
+            gap: 13px;
+            transition: background .18s, padding .18s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.13);
+            border-left: 3px solid #fff;
+            padding-left: 32px;
+        }
+
+        .sidebar-menu .sidebar-divider {
+            height: 1px;
+            margin: 14px 0;
+            background: rgba(255, 255, 255, 0.13);
+            border: none;
+        }
+
+        .sidebar .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 7px;
+            transition: color .23s;
+        }
+
+        .sidebar .close-btn:hover {
+            color: #ddd;
+        }
+
+        /* -- Overlay -- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(20, 16, 64, 0.35);
+            z-index: 1090;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .22s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* -- Responsive -- */
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .sidebar {
+                left: -260px;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .overlay {
+                display: block;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .sidebar {
+                left: 0;
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+                height: auto;
+            }
+
+            .mobile-menu-btn,
+            .overlay {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hamburger Button (Mobile only) -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Overlay (Mobile only) -->
+    <!-- <div class="overlay" id="sidebarOverlay"></div> -->
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="https://placehold.co/40x40" alt="Budget Buddy logo">
+                <span>Budget Buddy</span>
+            </div>
+            <button class="close-btn" id="closeSidebarBtn" aria-label="Close sidebar">&times;</button>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
+            <a href="#"><i class="fas fa-chart-line"></i>Dashboard</a>
+            <a href="#"><i class="fas fa-wallet"></i>My Budget</a>
+            <a href="#"><i class="fas fa-calendar-alt"></i>Planner</a>
+            <div class="sidebar-divider"></div>
+            <a href="#"><i class="fas fa-lightbulb"></i>Tips & Advice</a>
+            <a href="#"><i class="fas fa-chart-pie"></i>Reports</a>
+            <a href="#"><i class="fas fa-file-invoice-dollar"></i>Transactions</a>
+            <div class="sidebar-divider"></div>
+            <a href="#"><i class="fas fa-cog"></i>Settings</a>
+            <a href="#"><i class="fas fa-question-circle"></i>Help</a>
+        </nav>
+    </aside>
+
+
+    <script>
+        // Sidebar functionality: open/close sidebar & overlay
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+        function toggleSidebar(open) {
+            if (typeof open === 'boolean') {
+                sidebar.classList.toggle('open', open);
+                overlay.classList.toggle('active', open);
+            } else {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            }
+        }
+        // Hamburger open
+        mobileMenuBtn.addEventListener('click', () => toggleSidebar(true));
+        // Close btn
+        closeSidebarBtn.addEventListener('click', () => toggleSidebar(false));
+        // Overlay click closes
+        overlay.addEventListener('click', () => toggleSidebar(false));
+        // Optional: ESC-to-close on mobile
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && sidebar.classList.contains('open')) toggleSidebar(false);
+        });
+        // Optional: close sidebar when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) toggleSidebar(false);
+        });
+    </script>
+</body>
+
+</html>

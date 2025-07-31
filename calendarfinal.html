@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Calendar with EMI Reminders</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(
+          90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%
+        );
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      .reminder-dot::after {
+        content: "";
+        display: block;
+        width: 8px;
+        height: 8px;
+        background-color: #4caf50; /* green dot */
+        border-radius: 50%;
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+      }
+
+      .calendar-container {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        width: 45%;
+        height: 92vh;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        animation: fadeInUp 1s ease;
+        margin: 20px;
+        align-self: flex-start;
+      }
+
+      .details-container {
+        background: white;
+        border-radius: 30px;
+        padding: 30px;
+        width: 45%;
+        height: 92vh;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+        align-self: flex-start;
+        /* border:3px solid blue; */
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #e84da8;
+        color: white;
+        border-radius: 20px 20px 0 0;
+        padding: 15px 25px;
+        font-size: 30px;
+      }
+
+      .calendar-header span {
+        cursor: pointer;
+      }
+
+      .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        padding: 15px 0;
+        font-weight: bold;
+        color: #e84da8;
+        font-size: 22px;
+      }
+
+      /* .calendar-dates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        font-size: 24px;
+        flex-grow: 1;
+      } */
+       .calendar-dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 60px; /* adjust height as needed */
+  gap: 16px;
+  margin-top: 20px;
+  font-size: 20px; 
+}
+
+
+      .date {
+        padding: 22px;
+        margin: 6px;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+        position: relative;
+        border-radius: 8px;
+      }
+
+      .date:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .low:hover {
+        background-color: #c6f6d5;
+      }
+      .medium:hover {
+        background-color: #fefcbf;
+      }
+      .high:hover {
+        background-color: #feb2b2;
+      }
+
+      .emi-circle::after {
+        content: "";
+        display: block;
+        width: 8px;
+        height: 8px;
+        background-color: #e84da8;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .reminder-dot::after {
+        content: "";
+        display: block;
+        width: 8px;
+        height: 8px;
+        background-color: #4caf50; /* green dot for reminders */
+        border-radius: 50%;
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+      }
+
+      .spend-card {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 500px;
+        max-height: 600px;
+        overflow-y: auto;
+        z-index: 1000;
+      }
+
+      .spend-card h3 {
+        margin-bottom: 20px;
+        color: #e84da8;
+        font-size: 28px;
+      }
+
+      .item {
+        background: #f4f4f4;
+        padding: 15px 20px;
+        margin: 12px 0;
+        border-radius: 12px;
+        font-size: 16px;
+      }
+
+      .item-desc {
+        font-size: 14px;
+        color: #666;
+        margin-left: 15px;
+        margin-top: 5px;
+        border-left: 2px solid #e84da8;
+        padding-left: 8px;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 9;
+      }
+
+      /* .details {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #e84da8;
+
+      } */
+          .details {
+        background: #ffffff;
+        padding: 25px 48px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center; /* Center text inside */
+        max-width: 520px;
+        height: 490px;
+        width: 100%;
+        /* border: 2px solid green; */
+      }
+        .details-heading {
+        font-size: 34px;
+        font-weight: bold;
+        margin-top: 40px;
+        margin-bottom: 24px;
+        color: #333;
+        }
+
+        .details-item {
+          font-size: 20px;
+          margin: 16px 0;
+          color: #555;
+        }
+      .details-subheading {
+        font-size: 30px;
+        font-weight: 600;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        color: #2a2a2a;
+      }
+.details input,
+.details button {
+  margin: 10px 10px;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  /* border:1px solid #e84da8; */
+}
+.details button {
+  background-color: #e84da8;
+  /* border:2px solid #e84da8; */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.details button:hover {
+  background-color: #e84da8;;
+}
+      .add-purpose {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+      #monthlyBreakdown {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+      }
+      #emiReminder {
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .input-field {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 80%;
+      }
+
+      button {
+        font-size: 18px;
+        padding: 10px 16px;
+        background: white;
+        color: #e84da8;
+        border: 2px solid #e84da8;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #e84da8;
+        color: white;
+      }
+
+      .dropdown {
+        position: absolute;
+        background: white;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        z-index: 999;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .dropdown div {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+
+      .dropdown div:hover {
+        background: #f0f0f0;
+      }
+      #reminder-date,
+      #reminder-purpose {
+        margin-top: 4px;
+      }
+      /* ✅ Responsive Design for Tablets and Mobiles */
+@media screen and (max-width: 1024px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  .calendar-container,
+  /* .details-container {
+    width: 90%;
+    height: auto;
+    margin: 10px 0; */
+    /* border:3px solid red; */
+  /* } */
+  .details-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  /* border:3px solid red; */
+}
+
+  .calendar-header {
+    font-size: 24px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .calendar-days {
+    font-size: 16px;
+  }
+
+  .calendar-dates {
+    font-size: 18px;
+  }
+
+  .date {
+    padding: 14px;
+    margin: 4px;
+  }
+
+  .spend-card {
+    width: 90%;
+    max-width: 95%;
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .item {
+    font-size: 14px;
+  }
+
+  .item-desc {
+    font-size: 13px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .input-field {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+/* 🛠 Fix overflow issue at medium screen widths */
+@media screen and (max-width: 1300px) {
+  .calendar-container,
+  .details-container {
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  .calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 16px;
+  }
+
+  .date {
+    padding: 10px;
+    margin: 4px;
+    font-size: 14px;
+  }
+
+  .calendar-header {
+    font-size: 24px;
+    padding: 10px 20px;
+  }
+
+  .calendar-days {
+    font-size: 14px;
+  }
+
+  .spend-card {
+    width: 95%;
+    font-size: 14px;
+    padding: 16px;
+  }
+}
+
+/* 🧱 Stack on smaller screens */
+@media screen and (max-width: 768px) {
+  body {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .calendar-container,
+  .details-container {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .calendar-days {
+    font-size: 12px;
+  }
+
+  .calendar-dates {
+    font-size: 12px;
+  }
+
+  .date {
+    padding: 8px;
+    margin: 3px;
+    font-size: 12px;
+  }
+
+  .spend-card {
+    width: 95%;
+    font-size: 13px;
+  }
+}
+
+
+/* @media screen and (max-width: 600px) {
+  .calendar-days {
+    font-size: 14px;
+  }
+
+  .calendar-dates {
+    font-size: 14px;
+  }
+
+  .date {
+    padding: 10px;
+    font-size: 12px;
+    margin: 3px;
+  }
+
+  .spend-card {
+    width: 95%;
+    max-width: 95%;
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .item {
+    font-size: 13px;
+  }
+
+  .item-desc {
+    font-size: 12px;
+  }
+
+  .calendar-header {
+    font-size: 20px;
+    padding: 10px 18px;
+  }
+
+  .dropdown {
+    font-size: 14px;
+    padding: 6px;
+  }
+} */
+
+      /* ✅ Responsive Container */
+/* .calendar-container {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+
+/* ✅ Responsive Date Grid */
+/* .dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+} */
+
+/* .date {
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  font-size: 14px;
+} */
+
+/* ✅ Popup Card */
+/* #popup-card {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  max-height: 80vh;
+} */
+
+/* ✅ Overlay */
+/* #overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: none;
+} */
+
+/* ✅ Mobile Responsiveness */
+/* @media screen and (max-width: 600px) {
+  .calendar-container {
+    width: 95%;
+    padding: 5px;
+  }
+
+  .date {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  #popup-card {
+    width: 95%;
+    padding: 15px;
+    font-size: 14px;
+  } */ 
+/* } */
+
+    </style>
+  </head>
+  <body>
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button onclick="changeMonth(-1)">📅</button>
+        <div>
+          <span onclick="showMonthDropdown(event)" id="monthLabel">July</span>
+          <span>&nbsp;</span>
+          <span onclick="showYearDropdown(event)" id="yearLabel">2025</span>
+        </div>
+        <button onclick="changeMonth(1)">⏭</button>
+      </div>
+
+      <div class="calendar-days">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+
+      <div class="calendar-dates" id="dates"></div>
+    </div>
+
+    <!-- <div class="details-container">
+      <div class="details" id="details">
+        <h3 id="monthlyDetails">
+        </h3>
+        <div id="monthlySpendingDetails">
+          <div id="monthlyBreakdown"></div>
+        </div>
+
+        <div class="card">
+          <h2>Set Reminder</h2>
+          <label for="reminder-date">Reminder Date:</label>
+          <input type="date" id="reminder-date" required /><br /><br />
+
+          <label for="reminder-purpose">Purpose:</label>
+          <input
+            type="text"
+            id="reminder-purpose"
+            placeholder="e.g., Pay Rent, Bill Due"
+            required
+          /><br /><br />
+
+          <button onclick="saveReminder()">Set Reminder</button>
+        </div>
+      </div>
+    </div> -->
+    <div class="details-container">
+  <div class="details" id="details">
+    <h2 class="details-heading">July 2025 Summary</h2>
+    <p class="details-item">Total Spending: ₹1500</p>
+    <p class="details-item">Days with Expenses: 1</p>
+    <h3 class="details-subheading">Set Reminder</h3>
+    <input type="date" id="reminder-date" />
+    <input type="text" id="reminder-purpose" placeholder="Purpose" />
+    <button onclick="saveReminder()">Save</button>
+  </div>
+</div>
+
+
+    <div class="overlay" id="overlay"></div>
+    <div class="spend-card" id="spendCard">
+      <h3 id="selectedDateDetails">Select a date to see details</h3>
+      <div
+        id="emiReminder"
+        style="
+          display: none;
+          background: #ffebee;
+          padding: 10px;
+          border-radius: 8px;
+          color: #d32f2f;
+          font-weight: bold;
+        "
+      >
+        ⚠️ EMI Payment Due Today! ⚠️
+      </div>
+      <div id="spendingDetails"></div>
+      <button onclick="closeSpendCard()">Close</button>
+    </div>
+    <!-- <div style="margin-top: 30px">
+      <h2 style="color: #e84da8">LocalStorage Data (Budget Records)</h2>
+      <table
+        id="storageTable"
+        border="1"
+        cellpadding="8"
+        style="width: 100%; border-collapse: collapse"
+      >
+        <thead>
+          <tr style="background-color: #f2f2f2">
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount (₹)</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div> -->
+
+    <script>
+      const datesEl = document.getElementById("dates");
+      const monthLabel = document.getElementById("monthLabel");
+      const yearLabel = document.getElementById("yearLabel");
+      const selectedDateDetails = document.getElementById(
+        "selectedDateDetails"
+      );
+      const emiReminder = document.getElementById("emiReminder");
+      const spendingDetails = document.getElementById("spendingDetails");
+      const extraDataInput = document.getElementById("extraData");
+      const monthlySpendingDetails = document.getElementById(
+        "monthlySpendingDetails"
+      );
+      const spendCard = document.getElementById("spendCard");
+      const overlay = document.getElementById("overlay");
+
+      let currentMonth = 6; // July
+      let currentYear = 2025;
+
+      const NET_MONTHLY_INCOME =
+        parseFloat(localStorage.getItem("income")) || 50000; // fallback ₹50,000
+
+      const categoryThresholds = {
+        housing: [0.25, 0.3],
+        utilities: [0.05, 0.07],
+        food: [0.1, 0.15],
+        transport: [0.05, 0.1],
+        entertainment: [0.05, 0.08],
+        health: [0.05, 0.07],
+        education: [0.05, 0.1],
+        emi: [0.05, 0.1],
+        others: [0.03, 0.05],
+      };
+
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      function getTotalSpendingForDate(day) {
+        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+        // const today = new Date(currentYear, currentMonth, day)
+        //   .toISOString()
+        //   .split("T")[0];
+           const dateObj = new Date(currentYear, currentMonth, day);
+           const today = dateObj.getFullYear() + "-" +
+              String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
+              String(dateObj.getDate()).padStart(2, '0');
+           const record = records.find((record) => record.date === today);
+           return record
+          ? record.expenses.reduce((sum, e) => sum + e.amount, 0)
+          : 0;
+      }
+
+      function getMonthlySpending() {
+        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+        const purposes = JSON.parse(localStorage.getItem("datePurposes")) || [];
+
+        const monthlySpending = records.filter((record) => {
+          const recordDate = new Date(record.date);
+          return (
+            recordDate.getFullYear() === currentYear &&
+            recordDate.getMonth() === currentMonth
+          );
+        });
+
+        // Calculate totals
+        const categories = {};
+        let totalMonthlySpending = 0;
+
+        monthlySpending.forEach((record) => {
+          record.expenses.forEach((expense) => {
+            const cat = expense.category.toLowerCase();
+            categories[cat] = (categories[cat] || 0) + expense.amount;
+            totalMonthlySpending += expense.amount;
+          });
+        });
+
+        // Update UI
+        monthlySpendingDetails.innerHTML = `
+        <h4>${months[currentMonth]} ${currentYear} Summary</h4>
+        <div><strong>Total Spending:</strong> ₹${totalMonthlySpending}</div>
+        <div><strong>Days with Expenses:</strong> ${monthlySpending.length}</div>
+      `;
+
+        // Monthly breakdown
+        const breakdown = document.getElementById("monthlyBreakdown");
+        if (breakdown) {
+          breakdown.innerHTML = Object.entries(categories)
+            .map(
+              ([category, amount]) => `
+            <div class="category-item">
+              <span>${category}: ₹${amount}</span>
+            </div>`
+            )
+            .join("");
+        }
+      }
+
+//       function renderCalendar() {
+//   datesEl.innerHTML = "";
+//   const date = new Date(currentYear, currentMonth, 1);
+//   monthLabel.innerText = months[currentMonth];
+//   yearLabel.innerText = currentYear;
+
+//   const firstDay = date.getDay();
+//   const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+//   const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+
+//   for (let i = 0; i < firstDay; i++) {
+//     const empty = document.createElement("div");
+//     datesEl.appendChild(empty);
+//   }
+
+//   for (let day = 1; day <= lastDate; day++) {
+//     const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+//     const record = records.find((r) => r.date === isoDate);
+//     let level = "low"; // default green
+
+//     if (record && record.expenses && record.expenses.length > 0) {
+//       for (const exp of record.expenses) {
+//         const cat = exp.category.toLowerCase();
+//         const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
+//         const minAmt = NET_MONTHLY_INCOME * minPct;
+//         const maxAmt = NET_MONTHLY_INCOME * maxPct;
+
+//         if (exp.amount > maxAmt) {
+//           level = "high"; // red
+//           break;
+//         } else if (exp.amount >= minAmt) {
+//           level = "medium"; // yellow
+//         }
+//       }
+//     }
+
+//     const dateEl = document.createElement("div");
+//     dateEl.className = `date ${level}`;
+//     dateEl.innerText = day;
+
+//     // ✅ Use closure to correctly capture each day's value
+//     dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+
+//     // ✅ Add reminder dot if a reminder is set for this date
+//     const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+//     if (reminders.some((r) => r.date === isoDate)) {
+//       dateEl.classList.add("reminder-dot");
+//     }
+
+//     datesEl.appendChild(dateEl);
+//   }
+// }
+function renderCalendar() {
+  datesEl.innerHTML = "";
+  const date = new Date(currentYear, currentMonth, 1);
+  monthLabel.innerText = months[currentMonth];
+  yearLabel.innerText = currentYear;
+
+  const firstDay = date.getDay();
+  const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+  const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    datesEl.appendChild(empty);
+  }
+
+  for (let day = 1; day <= lastDate; day++) {
+    // const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')};`
+    const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    
+    const record = records.find((r) => r.date === isoDate);
+
+    // let level = "low";
+
+    // if (record && record.expenses && record.expenses.length > 0) {
+    //   for (const exp of record.expenses) {
+    //     const cat = exp.category.toLowerCase();
+    //     const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
+    //     const minAmt = NET_MONTHLY_INCOME * minPct;
+    //     const maxAmt = NET_MONTHLY_INCOME * maxPct;
+
+    //     if (exp.amount > maxAmt) {
+    //       level = "high";
+    //       break;
+    //     } else if (exp.amount >= minAmt) {
+    //       level = "medium";
+    //     }
+    //   }
+    // }
+
+    // const dateEl = document.createElement("div");
+    // // dateEl.className = `date ${level};`
+    // dateEl.className = `date ${level}`;
+    // dateEl.innerText = day;
+    // dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+
+    // // ✅ Reminder check
+    // if (reminders.some((r) => r.date === isoDate)) {
+    //   console.log("✅ Reminder matched:", isoDate);
+    //   dateEl.classList.add("reminder-dot");
+    // }
+
+    // datesEl.appendChild(dateEl);
+    let level = "low"; // default color
+if (record && record.expenses && record.expenses.length > 0) {
+  for (const exp of record.expenses) {
+    const cat = exp.category.toLowerCase();
+    const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
+    const minAmt = NET_MONTHLY_INCOME * minPct;
+    const maxAmt = NET_MONTHLY_INCOME * maxPct;
+
+    if (exp.amount > maxAmt) {
+      level = "high"; // red
+      break;
+    } else if (exp.amount >= minAmt) {
+      level = "medium"; // yellow
+    }
+  }
+}
+
+const dateEl = document.createElement("div");
+dateEl.className = `date ${level}`;
+
+// ✅ Always add click event, even if there's no expense (e.g., just reminder)
+dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+
+// ✅ Add circle/dot if a reminder exists
+const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+if (reminders.some((r) => r.date === isoDate)) {
+  dateEl.classList.add("reminder-dot");
+}
+
+dateEl.innerText = day;
+datesEl.appendChild(dateEl);
+
+  }
+  (function showUpcomingReminders() {
+  const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+  const today = new Date();
+
+  reminders.forEach(reminder => {
+    const reminderDate = new Date(reminder.date);
+    const diffDays = Math.floor((reminderDate - today) / (1000 * 60 * 60 * 24));
+
+     if (diffDays === 2) {
+       alert(`⏰ Reminder in 2 days: ${reminder.purpose} on ${reminder.date}`);
+     }
+     else if(diffDays == 1) {
+             alert(`⏰ Reminder in 1 days: ${reminder.purpose} on ${reminder.date}`);
+      }
+     else if(diffDays == 0) {
+             alert(`⏰ Reminder : ${reminder.purpose} on ${reminder.date}`);
+     }
+    
+  });
+})();
+
+}
+
+
+//       function showSpending(day) {
+//   const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+//   // const today = new Date(currentYear, currentMonth, day)
+//   //   .toISOString()
+//   //   .split("T")[0];
+//   const dateObj = new Date(currentYear, currentMonth, day);
+// const today = dateObj.getFullYear() + "-" +
+//               String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
+//               String(dateObj.getDate()).padStart(2, '0');
+//   const record = records.find((record) => record.date === today) || {
+//     expenses: [],
+//   };
+
+//   selectedDateDetails.innerText = `Details on ${months[currentMonth]} ${day}, ${currentYear}`;
+  
+//   const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+// const reminderForDate = reminders.find((r) => r.date === today);
+
+// if (reminderForDate) {
+//   const reminderHtml = `<div style="color: green; margin-bottom: 8px;">
+//     🔔 <strong>Reminder:</strong> ${reminderForDate.purpose}
+//   </div>`;
+//   spendingHtml = reminderHtml + spendingHtml;
+// }
+
+//   const spending = record.expenses.reduce(
+//     (acc, expense) => {
+//       acc[expense.category.toLowerCase()] =
+//         (acc[expense.category.toLowerCase()] || 0) + expense.amount;
+//       return acc;
+//     },
+//     {
+//       housing: 0,
+//       utilities: 0,
+//       food: 0,
+//       transport: 0,
+//       entertainment: 0,
+//       health: 0,
+//       education: 0,
+//       emi: 0,
+//       others: 0,
+//     }
+//   );
+
+//   let spendingHtml = "";
+  
+//   if (record.expenses.length > 0) {
+//     record.expenses.forEach((expense) => {
+//       spendingHtml += `
+//         <div class="item">
+//           <strong>${expense.category}:</strong> ₹${expense.amount}
+//           <div class="item-desc">${expense.description || "No description"}</div>
+//         </div>`;
+//     });
+//   } else {
+//     spendingHtml = "<div>No expenses recorded for this date.</div>";
+//   }
+
+//   const totalSpend = Object.values(spending).reduce(
+//     (sum, val) => sum + val,
+//     0
+//   );
+//   spendingHtml += `<div><strong>Total Spending:</strong> ₹${totalSpend}</div>`;
+
+//   // ✅ Update DOM BEFORE showing the modal
+//   spendingDetails.innerHTML = spendingHtml;
+//   emiReminder.style.display = spending.emi > 0 ? "block" : "none";
+
+//   // ✅ Now show the modal
+//   overlay.style.display = "block";
+//   spendCard.style.display = "block";
+// }
+function showSpending(day) {
+  const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+  const dateObj = new Date(currentYear, currentMonth, day);
+  const today = dateObj.getFullYear() + "-" +
+                String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
+                String(dateObj.getDate()).padStart(2, '0');
+
+  const record = records.find((record) => record.date === today) || { expenses: [] };
+  selectedDateDetails.innerText = `Details on ${months[currentMonth]} ${day}, ${currentYear}`;
+
+  const spending = record.expenses.reduce(
+    (acc, expense) => {
+      acc[expense.category.toLowerCase()] =
+        (acc[expense.category.toLowerCase()] || 0) + expense.amount;
+      return acc;
+    },
+    {
+      housing: 0,
+      utilities: 0,
+      food: 0,
+      transport: 0,
+      entertainment: 0,
+      health: 0,
+      education: 0,
+      emi: 0,
+      others: 0,
+    }
+  );
+
+  let spendingHtml = "";
+
+  // ✅ Check and add reminder if it exists
+  const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+  const reminderForDate = reminders.find((r) => r.date === today);
+  if (reminderForDate) {
+    spendingHtml += `<div style="color: green; margin-bottom: 8px;">
+      🔔 <strong>Reminder:</strong> ${reminderForDate.purpose}
+    </div>`;
+  }
+
+  if (record.expenses.length > 0) {
+    record.expenses.forEach((expense) => {
+      spendingHtml += `
+        <div class="item">
+          <strong>${expense.category}:</strong> ₹${expense.amount}
+          <div class="item-desc">${expense.description || "No description"}</div>
+        </div>`;
+    });
+  } else if (!reminderForDate) {
+    spendingHtml += "<div>No expenses recorded for this date.</div>";
+  }
+
+  const totalSpend = Object.values(spending).reduce(
+    (sum, val) => sum + val,
+    0
+  );
+  if (record.expenses.length > 0) {
+    spendingHtml += `<div><strong>Total Spending:</strong> ₹${totalSpend}</div>`;
+  }
+
+  spendingDetails.innerHTML = spendingHtml;
+  emiReminder.style.display = spending.emi > 0 ? "block" : "none";
+
+  overlay.style.display = "block";
+  spendCard.style.display = "block";
+}
+
+
+
+      function closeSpendCard() {
+        overlay.style.display = "none";
+        spendCard.style.display = "none";
+      }
+
+      function addPurposeToDate() {
+        const day = parseInt(document.getElementById("purposeDay").value);
+        const category = document.getElementById("purposeCategory").value;
+        const amount = parseFloat(
+          document.getElementById("purposeAmount").value
+        );
+        const desc = document.getElementById("purposeDesc").value;
+
+        if (!day || day < 1 || day > 31) {
+          alert("Please enter a valid day (1-31)");
+          return;
+        }
+
+        if (isNaN(amount) || amount <= 0) {
+          alert("Please enter a valid amount");
+          return;
+        }
+
+        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+        const dateKey = new Date(currentYear, currentMonth, day)
+          .toISOString()
+          .split("T")[0];
+
+        let record = records.find((r) => r.date === dateKey);
+        if (!record) {
+          record = {
+            date: dateKey,
+            expenses: [],
+          };
+          records.push(record);
+        }
+
+        record.expenses.push({
+          category: category,
+          amount: amount,
+          description: desc,
+        });
+
+        localStorage.setItem("budgetRecords", JSON.stringify(records));
+
+        alert(
+          `Added ₹${amount} for ${category} on ${day} ${months[currentMonth]}`
+        );
+        document.getElementById("purposeDay").value = "";
+        document.getElementById("purposeAmount").value = "";
+        document.getElementById("purposeDesc").value = "";
+
+        // Refresh display
+        renderCalendar();
+        getMonthlySpending();
+      }
+
+      function changeMonth(diff) {
+        currentMonth += diff;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        } else if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+        renderCalendar();
+        getMonthlySpending(); // Update monthly spending when changing month
+      }
+
+      function showMonthDropdown(event) {
+        removeExistingDropdown();
+        const dropdown = document.createElement("div");
+        dropdown.className = "dropdown";
+        months.forEach((month, index) => {
+          const option = document.createElement("div");
+          option.innerText = month;
+          option.onclick = () => {
+            currentMonth = index;
+            renderCalendar();
+            getMonthlySpending(); // Update monthly spending when changing month
+            dropdown.remove();
+          };
+          dropdown.appendChild(option);
+        });
+        document.body.appendChild(dropdown);
+        positionDropdown(dropdown, event.target);
+      }
+
+      function showYearDropdown(event) {
+        removeExistingDropdown();
+        const dropdown = document.createElement("div");
+        dropdown.className = "dropdown";
+        for (let y = 2000; y <= 2099; y++) {
+          const option = document.createElement("div");
+          option.innerText = y;
+          option.onclick = () => {
+            currentYear = y;
+            renderCalendar();
+            getMonthlySpending(); // Update monthly spending when changing year
+            dropdown.remove();
+          };
+          dropdown.appendChild(option);
+        }
+        document.body.appendChild(dropdown);
+        positionDropdown(dropdown, event.target);
+      }
+
+      function positionDropdown(dropdown, target) {
+        const rect = target.getBoundingClientRect();
+        dropdown.style.top = rect.bottom + 5 + "px";
+        dropdown.style.left = rect.left + "px";
+      }
+
+      function removeExistingDropdown() {
+        const existing = document.querySelector(".dropdown");
+        if (existing) existing.remove();
+      }
+
+      document.addEventListener("click", function (e) {
+        const dropdown = document.querySelector(".dropdown");
+        if (
+          dropdown &&
+          !dropdown.contains(e.target) &&
+          e.target !== monthLabel &&
+          e.target !== yearLabel
+        ) {
+          dropdown.remove();
+        }
+      });
+
+      // Initial render
+      renderCalendar();
+      getMonthlySpending();
+      renderLocalStorageTable();
+      function renderLocalStorageTable() {
+        const tableBody = document.querySelector("#storageTable tbody");
+        tableBody.innerHTML = "";
+
+        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+
+        records.forEach((record) => {
+          record.expenses.forEach((expense) => {
+            const row = document.createElement("tr");
+
+            const dateCell = document.createElement("td");
+            dateCell.textContent = record.date;
+            row.appendChild(dateCell);
+
+            const categoryCell = document.createElement("td");
+            categoryCell.textContent = expense.category;
+            row.appendChild(categoryCell);
+
+            const amountCell = document.createElement("td");
+            amountCell.textContent = `₹${expense.amount}`;
+            row.appendChild(amountCell);
+
+            const descCell = document.createElement("td");
+            descCell.textContent = expense.description || "-";
+            row.appendChild(descCell);
+
+            tableBody.appendChild(row);
+          });
+        });
+      }
+      function saveReminder() {
+        const dateInput = document.getElementById("reminder-date").value;
+        const [year, month, day] = dateInput.split("-");
+        const date = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+        const purpose = document
+          .getElementById("reminder-purpose")
+          .value.trim();
+
+        if (!date || !purpose) {
+          alert("⚠️ Please fill in both the date and purpose.");
+          return;
+        }
+
+        const reminder = { date, purpose };
+        let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+
+        if (reminders.some((r) => r.date === date)) {
+          alert("🔔 A reminder already exists for this date.");
+          return;
+        }
+
+        reminders.push(reminder);
+        localStorage.setItem("reminders", JSON.stringify(reminders));
+        alert(`✅ Reminder set for ${date} — ${purpose}`);
+       
+        document.getElementById("reminder-date").value = "";
+        document.getElementById("reminder-purpose").value = "";
+
+        // Refresh calendar after setting reminder
+        renderCalendar();
+      }
+    </script>
+  </body>
+</html>
+
