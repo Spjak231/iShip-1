@@ -256,7 +256,7 @@ footer {
         text-align: center;
     }
     button {
-        background-color: #d96bd3;
+      background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
         border: none;
         color: white;
         padding: 10px 20px;
@@ -264,6 +264,9 @@ footer {
         font-size: 16px;
         cursor: pointer;
         font-weight: bold;
+    }
+    button:hover{
+      background: #4776E6;
     }
     .goal-display {
         font-size: 18px;
@@ -490,6 +493,7 @@ footer {
 
     // ✅ Save combined savings for later use
     localStorage.setItem("annualSaved", totalSavings);
+localStorage.setItem("totalAnnualSavings", totalSavings); // ✅ Sync for other pages
 
     // Load annual goal if already set
     const savedGoal = localStorage.getItem("annualGoal");
@@ -560,7 +564,7 @@ footer {
     }
     window.onload = () => {
     autoLoadAnnualData();
-    localStorage.setItem("totalAnnualSavings", localStorage.getItem("monthlySavedAmount") || "0");
+    // localStorage.setItem("totalAnnualSavings", localStorage.getItem("monthlySavedAmount") || "0");
     updateAnnualSavings();
 };
 
@@ -596,6 +600,11 @@ function updateAnnualSavings() {
 
   // Update automatically if changed from another page
   window.addEventListener("storage", updateAnnualSavings);
+
+
+ 
+
+
 
     </script>
     
