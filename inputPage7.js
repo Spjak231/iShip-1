@@ -281,6 +281,20 @@ function reloadStoredData() {
 
   calculateTotals();
 }
+function saveReminder() {
+  const date = document.getElementById("reminder-date").value;
+  const purpose = document.getElementById("reminder-purpose").value;
+
+  if (!date || !purpose) {
+    alert("Please enter both date and purpose for the reminder.");
+    return;
+  }
+
+  localStorage.setItem("reminderDate", date);
+  localStorage.setItem("reminderPurpose", purpose);
+
+  alert("✅ Reminder set successfully!");
+}
 
 
 // on clicking reset all the details given in the page should reset ,,but that data in the local storage should
