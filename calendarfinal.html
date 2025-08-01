@@ -24,6 +24,166 @@
         display: flex;
         justify-content: flex-start;
       }
+      /* nav {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+}
+
+.menueInNaveBar {
+    background: white;
+    box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 9999px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 10px;
+    padding: 0 50px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menueInNaveBar .sidebarIcon {
+    display: none;
+}
+
+.menueInNaveBar .logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-height: 56px;
+}
+
+.logo-img {
+    height: 95px;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+.menueInNaveBar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    gap: 1.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.menueInNaveBar ul li {
+    position: relative;
+}
+
+.menueInNaveBar ul li a {
+    color: black;
+    text-decoration: none;
+    padding: 0.4rem 0.25rem;
+    border-radius: 0.35rem;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.menueInNaveBar ul li a:hover,
+.menueInNaveBar ul li a.active {
+    background: #f6f6ff;
+    color: #4c4cff;
+}
+
+.menueInNaveBar ul li .dropdown {
+    cursor: pointer;
+}
+
+.menueInNaveBar ul li .dropdown-content {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    padding: 0.5rem 0;
+    min-width: 140px;
+    display: none;
+    flex-direction: column;
+    z-index: 20;
+}
+
+.menueInNaveBar ul li:hover .dropdown-content {
+    display: flex;
+}
+
+.menueInNaveBar ul li .dropdown-content a {
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+    color: #333;
+}
+
+.menueInNaveBar ul li .dropdown-content a:hover {
+    background: #e4e4ff;
+    color: #4c4cff;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-login {
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.hidden {
+  display: none !important;
+} */
+/* @media only screen and (min-width: 601px) and (max-width: 900px) {
+    .menueInNaveBar ul {
+        display: none;
+    }
+
+    .menueInNaveBar {
+        padding-left: 30px;
+    }
+
+    .menueInNaveBar .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+    }
+
+    .auth-buttons {
+        margin-left:200px;
+     }
+    }
+@media only screen and (max-width: 600px) {
+    .menueInNaveBar ul {
+        display: none;
+    }
+
+    .menueInNaveBar {
+        padding-left: 30px;
+        padding-right: 20px;
+    }
+
+    .menueInNaveBar .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+    }
+
+    .auth-buttons {
+        margin-left: 20px;
+    }
+  } */
 
       .reminder-dot::after {
         content: "";
@@ -82,7 +242,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #e84da8;
+        background:#4c4cff;
         color: white;
         border-radius: 20px 20px 0 0;
         padding: 15px 25px;
@@ -99,7 +259,7 @@
         text-align: center;
         padding: 15px 0;
         font-weight: bold;
-        color: #e84da8;
+        color: #4c4cff;
         font-size: 22px;
       }
 
@@ -148,7 +308,7 @@
         display: block;
         width: 8px;
         height: 8px;
-        background-color: #e84da8;
+        background-color: #4c4cff;
         border-radius: 50%;
         position: absolute;
         bottom: 6px;
@@ -186,7 +346,7 @@
 
       .spend-card h3 {
         margin-bottom: 20px;
-        color: #e84da8;
+        color:#4c4cff;
         font-size: 28px;
       }
 
@@ -203,7 +363,7 @@
         color: #666;
         margin-left: 15px;
         margin-top: 5px;
-        border-left: 2px solid #e84da8;
+        border-left: 2px solid #4c4cff;
         padding-left: 8px;
       }
 
@@ -265,7 +425,7 @@
   /* border:1px solid #e84da8; */
 }
 .details button {
-  background-color: #e84da8;
+  background-color: #4c4cff;
   /* border:2px solid #e84da8; */
   color: white;
   border: none;
@@ -273,7 +433,7 @@
 }
 
 .details button:hover {
-  background-color: #e84da8;;
+  background-color: #4c4cff;
 }
       .add-purpose {
         margin-top: 30px;
@@ -313,15 +473,15 @@
         font-size: 18px;
         padding: 10px 16px;
         background: white;
-        color: #e84da8;
-        border: 2px solid #e84da8;
+        color:#4c4cff;
+        border: 2px solid #4c4cff;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
       }
 
       button:hover {
-        background-color: #e84da8;
+        background-color: #4c4cff;
         color: white;
       }
 
@@ -609,6 +769,36 @@
     </style>
   </head>
   <body>
+    <!-- <nav>
+        <div class="menueInNaveBar">
+
+            <div class="sidebarIcon" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <a href="#" class="logo">
+                <img src="Screenshot_2025-07-22_211511-removebg-preview&#46;png" class="logo-img">
+            </a>
+            <ul>
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li><a href="./goalPage.html">Goal</a></li>
+                <li><a href="./graphpage.html">Graph</a></li>
+                <li><a href="./inputPage6.html">Input</a></li>
+                <li><a href="./calendarfinal.html">Calender</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="login.html?form=login" class="btn-login">Log in</a>
+                <a href="login.html?form=register" class="btn-primary">Sign Up</a>
+            </div>
+
+            <div class="profile-icon hidden" id="profileIcon">
+                <a href="profile.html" title="Profile">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </a>
+            </div>
+
+        </div>
+       </nav>     -->
     <div class="calendar-container">
       <div class="calendar-header">
         <button onclick="changeMonth(-1)">📅</button>
