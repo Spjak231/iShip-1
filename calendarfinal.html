@@ -950,7 +950,16 @@
       ];
 
       function getTotalSpendingForDate(day) {
-        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+        // const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+        cconst datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
+const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
+
+const records = datedExpenses.map((date, i) => ({
+  date: date,
+  expenses: JSON.parse(expensesList[i])
+}));
+
+
         // const today = new Date(currentYear, currentMonth, day)
         //   .toISOString()
         //   .split("T")[0];
@@ -1522,4 +1531,5 @@ function showSpending(day) {
     </script>
   </body>
 </html>
+
 
