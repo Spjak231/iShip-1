@@ -1444,9 +1444,15 @@ function showSpending(day) {
       });
 
       // Initial render
-      renderCalendar();
-      getMonthlySpending();
-      renderLocalStorageTable();
+      // renderCalendar();
+      // getMonthlySpending();
+      // renderLocalStorageTable();
+      window.addEventListener('DOMContentLoaded', () => {
+  renderCalendar();
+  getMonthlySpending();
+  renderLocalStorageTable();
+});
+
       function renderLocalStorageTable() {
         const tableBody = document.querySelector("#storageTable tbody");
         tableBody.innerHTML = "";
