@@ -951,13 +951,15 @@
 
       function getTotalSpendingForDate(day) {
         // const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-        cconst datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
-const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
+        const records = window.budgetRecords || [];
 
-const records = datedExpenses.map((date, i) => ({
-  date: date,
-  expenses: JSON.parse(expensesList[i])
-}));
+//         cconst datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
+// const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
+
+// const records = datedExpenses.map((date, i) => ({
+//   date: date,
+//   expenses: JSON.parse(expensesList[i])
+// }));
 
 
         // const today = new Date(currentYear, currentMonth, day)
@@ -1526,10 +1528,35 @@ function showSpending(day) {
         document.getElementById("reminder-purpose").value = "";
 
         // Refresh calendar after setting reminder
+        window.addEventListener("DOMContentLoaded", () => {
+  // Fix: Build records manually if budgetRecords is not found
+  let records = [];
+
+  if (localStorage.getItem("budgetRecords")) {
+    records = JSON.parse(localStorage.getItem("budgetRecords"));
+  } else {
+    const datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
+    const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
+
+    records = datedExpenses.map((date, i) => ({
+      date: date,
+      expenses: JSON.parse(expensesList[i])
+    }));
+  }
+
+  // Store it in a global variable so other functions can use it
+  window.budgetRecords = records;
+
+  renderCalendar();
+  getMonthlySpending();
+  renderLocalStorageTable();
+});
+
         renderCalendar();
       }
     </script>
   </body>
 </html>
+
 
 
