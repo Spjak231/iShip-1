@@ -64,23 +64,6 @@
         backface-visibility: hidden;
       }
 
-      button {
-        /*background-color: #4caf50;  Green */
-        /* color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 16px; */
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        background-color: #8f94fb;
-      }
-
-      button:hover {
-        background-color: #b8bbf1; /* Darker green on hover */
-        transform: scale(1.05); /* Slight zoom on hover */
-      }
-
       h2 {
         margin-bottom: 1rem;
         color: var(--primary);
@@ -172,10 +155,8 @@
         background-color: var(--accent);
       }
 
-      .addIncome,
-      .addSavings {
+      .addIncome,.addSavings{
         margin-top: 1rem;
-        /* margin-left:1rem; */
       }
 
       .submit-btn:hover,
@@ -335,9 +316,6 @@
         text-decoration: none;
         font-size: 0.95rem;
       }
-      .reset-button{
-        margin-top:1rem;
-      }
     </style>
   </head>
   <body>
@@ -376,17 +354,6 @@
     </nav>
 
     <main>
-      <h1
-        style="
-          text-align: center;
-          font-size: 2rem;
-          color: #4c4cff;
-          margin-top: 2rem;
-        "
-      >
-        Track Your Budget - Input Your Income, Savings & Daily Expenses
-      </h1>
-
       <div class="card">
         <h2>Enter Income & Savings Goal</h2>
         <label for="income">Monthly Income (₹)</label>
@@ -396,17 +363,13 @@
         <input type="number" id="savings" placeholder="e.g., 10000" required />
 
         <div class="income-actions">
-          <button class="addIncome" onclick="addIncomeAmount()">
-            Add Income
-          </button>
-          <button class="addSavings" onclick="addSavingsAmount()">
-            Add Savings
-          </button>
+          <button class="addIncome" onclick="addIncomeAmount()">Add Income</button>
+          <button class="addSavings" onclick="addSavingsAmount()">Add Savings</button>
         </div>
         <div class="income-actions">
-          <button class="reset-button" onclick="resetFixedBudget()">
-            Reset
-          </button>
+        <button class="save-btn-main" onclick="resetFixedBudget()">
+          Reset
+        </button>
         </div>
       </div>
 
