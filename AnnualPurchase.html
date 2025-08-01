@@ -704,14 +704,23 @@ nav ul li .dropdown-content a:hover {
     }
     
     function deleteGoal(i) {
-      if (confirm("Delete this goal? Funds will return to savings.")) {
-        totalSavings += goals[i].available;
-        goals.splice(i, 1);
-        localStorage.setItem("totalAnnualSavings", totalSavings);
-        saveAndRender();
-      }
-    }
-    
+  if (confirm("Delete this goal? Funds will return to savings.")) {
+    const refund = goals[i].available;
+
+    // Update total savings for this page
+    totalSavings += refund;
+    localStorage.setItem("totalAnnualSavings", totalSavings);
+
+    // 🔧 Update annualSaved for Annual Goal page
+    const annualSaved = parseFloat(localStorage.getItem("annualSaved") || "0");
+    localStorage.setItem("annualSaved", (annualSaved + refund).toString());
+
+    // Delete the goal
+    goals.splice(i, 1);
+    saveAndRender();
+  }
+}
+
     renderGoals();
     </script>
     
