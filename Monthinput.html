@@ -21,125 +21,175 @@
         height: 100vh;
     }
     /* Navigation styles */
-nav {
-  background: white;
-  box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+    nav {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    background: linear-gradient(
+          90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%
+        );
 
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  border-radius: 9999px;
-  max-width: 1440px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-nav .logo {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  max-height: 56px;
+.menueInNaveBar {
+    background: white;
+    box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 9999px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 10px;
+    padding: 0 50px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menueInNaveBar .sidebarIcon {
+    display: none;
+}
+
+.menueInNaveBar .logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-height: 56px;
 }
 
 .logo-img {
-  height: 95px;
-  /* Controls logo size */
-  max-width: 120px;
-  /* Prevents overly wide logos */
-  object-fit: contain;
-  /* Maintains aspect ratio */
+    height: 95px;
+    max-width: 120px;
+    object-fit: contain;
 }
 
-
-nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  gap: 1.5rem;
-  font-weight: 500;
-  font-size: 0.9rem;
+.menueInNaveBar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    gap: 1.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
 }
 
-nav ul li {
-  position: relative;
+.menueInNaveBar ul li {
+    position: relative;
 }
 
-nav ul li a {
-  color: black;
-  text-decoration: none;
-  padding: 0.4rem 0.25rem;
-  border-radius: 0.35rem;
-  transition: background-color 0.3s ease;
+.menueInNaveBar ul li a {
+    color: black;
+    text-decoration: none;
+    padding: 0.4rem 0.25rem;
+    border-radius: 0.35rem;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-nav ul li a:hover,
-nav ul li a.active {
-  background: #f6f6ff;
-  color: #4c4cff;
+.menueInNaveBar ul li a:hover,
+.menueInNaveBar ul li a.active {
+    background: #f6f6ff;
+    color: #4c4cff;
 }
 
-nav ul li .dropdown {
-  cursor: pointer;
+.menueInNaveBar ul li .dropdown {
+    cursor: pointer;
 }
 
-nav ul li .dropdown-content {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  padding: 0.5rem 0;
-  min-width: 140px;
-  display: none;
-  flex-direction: column;
-  z-index: 20;
+.menueInNaveBar ul li .dropdown-content {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    padding: 0.5rem 0;
+    min-width: 140px;
+    display: none;
+    flex-direction: column;
+    z-index: 20;
 }
 
-nav ul li:hover .dropdown-content {
-  display: flex;
+.menueInNaveBar ul li:hover .dropdown-content {
+    display: flex;
 }
 
-nav ul li .dropdown-content a {
-  padding: 0.5rem 1rem;
-  font-weight: 400;
-  color: #333;
+.menueInNaveBar ul li .dropdown-content a {
+    padding: 0.5rem 1rem;
+    font-weight: 400;
+    color: #333;
 }
 
-nav ul li .dropdown-content a:hover {
-  background: #e4e4ff;
-  color: #4c4cff;
+.menueInNaveBar ul li .dropdown-content a:hover {
+    background: #e4e4ff;
+    color: #4c4cff;
 }
-  
-.btn-primary {
-  background: #000000;
-  color: #ffffff;
-  font-weight: 600;
-  border-radius: 9999px;
-  padding: 0.5rem 1.5rem;
-  transition: background 0.3s ease;
-  text-decoration: none;
-}
-.btn-login {
-  font-weight: 600;
-  color: black;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-.btn-primary:hover {
-  background: #222222;
-}
+
+/* Login / Signup buttons grouping */
 .auth-buttons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
+
+.btn-login {
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.hidden {
+  display: none !important;
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    .menueInNaveBar ul {
+        display: none;
+    }
+
+    .menueInNaveBar {
+        padding-left: 30px;
+    }
+
+    .menueInNaveBar .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+    }
+
+    .auth-buttons {
+        margin-left: 200px;
+    }
+  }
+  /* Smartphones (portrait and landscape) */
+@media only screen and (max-width: 600px) {
+    .menueInNaveBar ul {
+        display: none;
+    }
+
+    .menueInNaveBar {
+        padding-left: 30px;
+        padding-right: 20px;
+    }
+
+    .menueInNaveBar .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+    }
+
+    .auth-buttons {
+        margin-left: 20px;
+    }
+  }
 footer {
   background-color: #000;
   color: #fff;
@@ -283,7 +333,7 @@ footer {
         font-size: 15px;
     }
     button {
-        background-color: #d96bd3;
+      background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
         border: none;
         color: white;
         padding: 10px 18px;
@@ -372,38 +422,36 @@ footer {
 
 <!-- HEADER -->
 <header>
-    <nav>
+  <nav>
+    <div class="menueInNaveBar">
+
+        <div class="sidebarIcon" id="mobileMenuBtn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
         <a href="#" class="logo">
-          <img
-            src="Screenshot_2025-07-22_211511-removebg-preview.png"
-            class="logo-img"
-          />
+            <img src="Screenshot_2025-07-22_211511-removebg-preview&#46;png" class="logo-img">
         </a>
         <ul>
-          <li><a href="#" class="active">Home</a></li>
-          <li>
-            <span class="dropdown">Features &#x25be;</span>
-            <div class="dropdown-content">
-              <a href="#">Feature 1</a>
-              <a href="#">Feature 2</a>
-              <a href="#">Feature 3</a>
-            </div>
-          </li>
-          <li>
-            <span class="dropdown">Solutions &#x25be;</span>
-            <div class="dropdown-content">
-              <a href="#">Solution 1</a>
-              <a href="#">Solution 2</a>
-            </div>
-          </li>
-          <li><a href="#">Enterprise</a></li>
+            <li><a href="./index.html" class="active">Home</a></li>
+            <li><a href="./goalPage.html">Goal</a></li>
+            <li><a href="./graphpage.html">Graph</a></li>
+            <li><a href="./inputPage6.html">Input</a></li>
+            <li><a href="./calendarfinal.html">Calender</a></li>
         </ul>
         <div class="auth-buttons">
-          <a href="#" class="btn-login">Log in</a>
-          <a href="#" class="btn-primary">Sign Up</a>
+            <a href="login.html?form=login" class="btn-login">Log in</a>
+            <a href="login.html?form=register" class="btn-primary">Sign Up</a>
         </div>
-      </nav>
-    
+
+        <div class="profile-icon hidden" id="profileIcon">
+            <a href="profile.html" title="Profile">
+                <i class="fas fa-user-circle fa-2x"></i>
+            </a>
+        </div>
+
+    </div>
+</nav>
 </header>
 <!-- MAIN CONTENT -->
 <div class="main">
