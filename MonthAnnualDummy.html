@@ -560,6 +560,7 @@ footer {
     }
     window.onload = () => {
     autoLoadAnnualData();
+    localStorage.setItem("totalAnnualSavings", localStorage.getItem("monthlySavedAmount") || "0");
     updateAnnualSavings();
 };
 
