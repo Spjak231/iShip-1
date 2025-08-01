@@ -1072,6 +1072,21 @@
 //     datesEl.appendChild(dateEl);
 //   }
 // }
+      let records = [];
+
+  const datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
+  const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
+
+  // Safely create records only if lengths match
+  if (datedExpenses.length === expensesList.length) {
+    records = datedExpenses.map((date, i) => ({
+      date: date,
+      expenses: JSON.parse(expensesList[i])
+    }));
+  }
+
+  // Make it available globally for all functions
+  window.budgetRecords = records;
 function renderCalendar() {
   datesEl.innerHTML = "";
   const date = new Date(currentYear, currentMonth, 1);
@@ -1557,6 +1572,7 @@ function showSpending(day) {
     </script>
   </body>
 </html>
+
 
 
 
