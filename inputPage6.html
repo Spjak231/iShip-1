@@ -316,6 +316,105 @@
         text-decoration: none;
         font-size: 0.95rem;
       }
+
+      footer {
+  background-color: #000;
+  color: #fff;
+  padding: 50px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.footer-section h3 {
+  color: #e375ef;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+  background-color: whitesmoke;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  background-color: #dda6f6;
+  color: #000;
+}
+
+.newsletter input[type="email"] {
+  padding: 8px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.newsletter button {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background-color: #e375ef;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.newsletter button:hover {
+  background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
+}
+
+.social-links a {
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 15px;
+  background-color: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s ease;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  border-top: 1px solid #333;
+  margin-top: 40px;
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+
+  .newsletter button,
+  .newsletter input[type="email"] {
+    font-size: 14px;
+  }
+}
     </style>
   </head>
   <body>
@@ -450,6 +549,52 @@
       </center>
     </main>
 
-    <footer>© 2025 Budget Buddy</footer>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Planner</a></li>
+            <li><a href="#">Tips</a></li>
+            <li><a href="#">Expense Tracker</a></li>
+            <li><a href="#">Reports</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Community Forum</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Disclaimer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section newsletter">
+          <h3>Stay Updated</h3>
+          <input type="email" placeholder="Your email" />
+          <button>Get started</button>
+          <div class="social-links" style="margin-top: 15px">
+            <p style="margin-bottom: 8px">Follow us:</p>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy;2025 Budget Buddy Inc. All rights reserved.
+      </div>
+    </footer>
   </body>
 </html>
