@@ -129,16 +129,7 @@ main {
   }
 }
 
-@media (max-width: 768px) {
-
-  .boxes {
-    width: 180px;
-    height: 90px;
-  }
-
-}
-
-@media (min-width: 600px){
+@media (max-width: 600px){
   .graphbox{
     height: 280px;
   }
@@ -156,8 +147,8 @@ main {
     }
 
   .boxes {
-    width: 230px;
-    height: 90px;
+    width: 100%;
+    height: 80px;
   }
 
   .boxes1 {
@@ -182,22 +173,16 @@ main {
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 320px) {
   .grdbox {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-
   .doughbox{
     height: 250px;
     width: 250px;
   }
-
-  .box2 {
-    gap: 20px;
-  }
-}
 
   .box2 {
     gap: 20px;
