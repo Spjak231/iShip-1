@@ -507,36 +507,51 @@ button{
 </head>
 <body> 
 
-    <nav>
-        <div class="menueInNaveBar">
-
-            <div class="sidebarIcon" id="mobileMenuBtn">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-
-            <a href="#" class="logo">
-                <img src="Screenshot_2025-07-22_211511-removebg-preview&#46;png" class="logo-img">
-            </a>
-            <ul>
-                <li><a href="./index.html" class="active">Home</a></li>
-                <li><a href="./goalPage.html">Goal</a></li>
-                <li><a href="./graphpage.html">Graph</a></li>
-                <li><a href="./inputPage6.html">Input</a></li>
-                <li><a href="./calendarfinal.html">Calender</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="login.html?form=login" class="btn-login">Log in</a>
-                <a href="login.html?form=register" class="btn-primary">Sign Up</a>
-            </div>
-
-            <div class="profile-icon hidden" id="profileIcon">
-                <a href="profile.html" title="Profile">
-                    <i class="fas fa-user-circle fa-2x"></i>
-                </a>
-            </div>
-
-        </div>
-    </nav>
+   <header>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+          <div class="sidebar-logo">
+              <img src="logoForSidebarmenue.png" alt="Budget Buddy logo">
+              <span>Budget Buddy</span>
+          </div>
+          <button class="close-btn" id="closeSidebarBtn" aria-label="Close sidebar">&times;</button>
+      </div>
+      <div class="sidebar-menu">
+          <a href="./index.html" class=""><i class="fas fa-home"></i>Home</a>
+          <a href="./inputPage6.html"><i class="fas fa-calendar-alt"></i>Input</a>
+          <a href="./calendarfinal.html"><i class="fas fa-lightbulb"></i>Calender</a>
+          <a href="./goalPage.html"><i class="fas fa-chart-line"></i>Goal</a>
+          <a href="./graphpage.html"><i class="fas fa-wallet"></i>Graph</a>
+          
+          
+      </div>
+  </aside>
+  <nav>
+    <div class="menueInNaveBar">
+      <div class="sidebarIcon" id="mobileMenuBtn">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+  
+      <a href="#" class="logo">
+        <img
+          src="Screenshot_2025-07-22_211511-removebg-preview&#46;png"
+          class="logo-img"
+        />
+      </a>
+      <ul>
+        <li><a href="./index.html" class="active">Home</a></li>
+       
+        <li><a href="./inputPage6.html">Input</a></li>
+        <li><a href="./calendarfinal.html">Calender</a></li>
+        <li><a href="./goalPage.html">Goal</a></li>
+        <li><a href="./graphpage.html">Graph</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="login.html?form=register" class="btn-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>  
+  </header>
 
     
     <main>
