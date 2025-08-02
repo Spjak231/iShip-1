@@ -1,153 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Budget Calendar with EMI Reminders</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(
-          90deg,
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Budget Calendar with EMI Reminders</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(90deg,
           #d4d9ff 0%,
           #e5cef0 50%,
-          #dbdff2 100%
-        );
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: flex-start;
-      }
-      /* nav {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
+          #dbdff2 100%);
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    nav {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      background: linear-gradient(90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%);
+
+    }
+
+    .menueInNaveBar {
+      background: white;
+      /* color: black; */
+      /* background-color: white; */
+      box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 9999px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 10px;
+      padding: 0 50px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebarIcon {
+      display: none;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      max-height: 56px;
+    }
+
+    .logo-img {
+      height: 95px;
+      max-width: 120px;
+      object-fit: contain;
+    }
+
+    .menueInNaveBar ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      gap: 1.5rem;
+      /* color: black; */
+    }
+
+    .menueInNaveBar ul li a {
+      color: black;
+      text-decoration: none;
+      padding: 0.4rem 0.25rem;
+      border-radius: 0.35rem;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .menueInNaveBar ul li a:hover,
+    .menueInNaveBar ul li a.active {
+      background: #f6f6ff;
+      color: #4c4cff;
+    }
+
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      background: #000000;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 0.5rem 1.5rem;
+      transition: background 0.3s ease;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: #222222;
+    }
+
+    .btn-outline-purple {
+      background: #8f94fb;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 0.4rem 1.2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-outline-purple:hover {
+      background: #7269f7;
+    }
+
+    .btn-grad {
+      background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
+      background-size: 200% auto;
+      background-position: left center;
+      width: 160px;
+      height: 50px;
+      margin: 2rem auto;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.5;
+      text-transform: uppercase;
+      transition: background-position 0.5s ease-in-out;
+      color: white;
+      box-shadow: 0 0 20px #eee;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .btn-grad:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+
+    /* ==============================sidebar menue ========================*/
+
+
+/* -- Sidebar -- */
+.sidebar {
+    position: fixed;
     top: 0;
-    z-index: 10;
-    background: #fff;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(170deg, #4f46e5 0%, #7c3aed 100%);
+    color: #fff;
+    box-shadow: 4px 0 16px rgba(44, 16, 112, 0.08);
+    transition: left 0.3s cubic-bezier(.7, .3, .3, 1);
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
 }
 
-.menueInNaveBar {
-    background: white;
-    box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 9999px;
-    max-width: 1440px;
-    width: 100%;
-    margin: 0 10px;
-    padding: 0 50px;
-    height: 80px;
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 24px 20px 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
 
-.menueInNaveBar .sidebarIcon {
-    display: none;
-}
-
-.menueInNaveBar .logo {
+.sidebar-logo {
     display: flex;
     align-items: center;
-    height: 100%;
-    max-height: 56px;
+    gap: 10px;
 }
 
-.logo-img {
-    height: 95px;
-    max-width: 120px;
-    object-fit: contain;
+.sidebar-logo img {
+    box-shadow: 0px 0px 5px 0px #b7b7b7;
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255);
+    object-fit: cover;
 }
 
-.menueInNaveBar ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-    gap: 1.5rem;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.menueInNaveBar ul li {
-    position: relative;
-}
-
-.menueInNaveBar ul li a {
-    color: black;
-    text-decoration: none;
-    padding: 0.4rem 0.25rem;
-    border-radius: 0.35rem;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.menueInNaveBar ul li a:hover,
-.menueInNaveBar ul li a.active {
-    background: #f6f6ff;
-    color: #4c4cff;
-}
-
-.menueInNaveBar ul li .dropdown {
-    cursor: pointer;
-}
-
-.menueInNaveBar ul li .dropdown-content {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-    padding: 0.5rem 0;
-    min-width: 140px;
-    display: none;
-    flex-direction: column;
-    z-index: 20;
-}
-
-.menueInNaveBar ul li:hover .dropdown-content {
-    display: flex;
-}
-
-.menueInNaveBar ul li .dropdown-content a {
-    padding: 0.5rem 1rem;
-    font-weight: 400;
-    color: #333;
-}
-
-.menueInNaveBar ul li .dropdown-content a:hover {
-    background: #e4e4ff;
-    color: #4c4cff;
-}
-
-.auth-buttons {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.btn-login {
+.sidebar-logo span {
+    font-size: 1.1rem;
     font-weight: 600;
-    color: black;
-    text-decoration: none;
-    font-size: 0.95rem;
+    letter-spacing: .3px;
 }
 
-.hidden {
-  display: none !important;
-} */
-/* @media only screen and (min-width: 601px) and (max-width: 900px) {
+.sidebar-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sidebar-menu a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.99rem;
+    padding: 10px 20px;
+    gap: 13px;
+    transition: background .18s, padding .18s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background: rgba(255, 255, 255, 0.13);
+    border-left: 3px solid #fff;
+    padding-left: 40px;
+}
+
+.sidebar-menu .sidebar-divider {
+    height: 1px;
+    margin: 14px 0;
+    background: rgba(255, 255, 255, 0.13);
+    border: none;
+}
+
+.sidebar .close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 7px;
+    transition: color .23s;
+}
+
+.sidebar .close-btn:hover {
+    color: #ddd;
+}
+
+    /* === MOBILE MENU LOGIC === */
+
+    @media (max-width: 900px) {
+      .menueInNaveBar ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        background-color: #ffffff;
+        width: 100%;
+        padding: 1rem;
+        z-index: 999;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+
+      .logo-img {
+        display: block !important;
+        /* Ensure logo shows on small screens */
+      }
+
+      .sidebarIcon {
+        display: block;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .menueInNaveBar ul {
+        display: flex !important;
+        position: static;
+        flex-direction: row;
+        gap: 1.5rem;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      .sidebarIcon {
+        display: none !important;
+      }
+    }
+
+    #menuToggleBtn {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #000;
+      /* or white, depending on your background */
+    }
+
+    /* Hide the menu button on large screens */
+    #mobileMenu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: black;
+      /* black menu bar */
+      width: 100%;
+      padding: 1rem;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    #mobileMenu.show {
+      display: flex;
+    }
+
+
+
+    /* ======= FOOTER ======= */
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 50px 80px;
+      width: 100%;
+    }
+
+    .footer-container_1 {
+      max-width: 1440px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+      gap: 30px;
+    }
+
+    .footer-container_2 {
+      display: none;
+    }
+
+    .footer-section h3 {
+      color: #e375ef;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      font-weight: 500;
+      background-color: whitesmoke;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+      background-color: #dda6f6;
+      color: #000;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 8px;
+      width: 100%;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .newsletter button {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      background-color: #e375ef;
+      color: #000;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .newsletter button:hover {
+      background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
+    }
+
+    .social-links a {
+      text-decoration: none;
+      font-size: 16px;
+      margin-right: 15px;
+      background-color: white;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: 0.3s ease;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+      border-top: 1px solid #333;
+      margin-top: 40px;
+      padding-top: 15px;
+    }
+
+    /* ======= MEDIA QUERIES ======= */
+    @media only screen and (max-width: 600px) {
+      .menueInNaveBar ul {
+        display: none;
+      }
+
+      .menueInNaveBar {
+        padding-left: 30px;
+        padding-right: 20px;
+      }
+
+      .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+      }
+
+      .auth-buttons {
+        margin-left: 20px;
+      }
+
+      .logo-img {
+        display: none;
+      }
+
+      .footer-container_1 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+      }
+
+      footer {
+        padding: 40px 20px;
+      }
+    }
+
+    @media only screen and (min-width: 601px) and (max-width: 900px) {
+      .menueInNaveBar ul {
+        display: none;
+      }
+
+      .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+      }
+
+      .auth-buttons {
+        margin-left: 200px;
+      }
+    }
+
+    /* ===== Smartphones (portrait and landscape) ===== */
+    @media only screen and (max-width: 600px) {
+      .footer-container_1 {
+        display: none;
+      }
+
+      .footer-container_2 {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      footer {
+        padding: 50px 20px;
+      }
+    }
+
+    /* ===== Tablets (portrait and landscape) ===== */
+    @media only screen and (min-width: 601px) and (max-width: 900px) {
+      /* No additional changes specifically to the footer in this range */
+    }
+
+    button {
+      background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
+    }
+
+    /* ========== Sidebar Base ========== */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      /* Hidden by default */
+      width: 260px;
+      height: 100vh;
+      background: linear-gradient(170deg, #4f46e5 0%, #7c3aed 100%);
+      color: #fff;
+      box-shadow: 4px 0 16px rgba(44, 16, 112, 0.08);
+      transition: left 0.3s cubic-bezier(.7, .3, .3, 1);
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      left: 0;
+      /* Slide into view */
+    }
+
+    /* ========== Sidebar Header ========== */
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 20px 10px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    /* ========== Logo Inside Sidebar ========== */
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-logo img {
+      box-shadow: 0px 0px 5px 0px #b7b7b7;
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255);
+      object-fit: cover;
+    }
+
+    .sidebar-logo span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
+
+    /* ========== Menu Items ========== */
+    .sidebar-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .sidebar-menu a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.99rem;
+      padding: 10px 20px;
+      gap: 13px;
+      transition: background .18s, padding .18s;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-menu a:hover,
+    .sidebar-menu a.active {
+      background: rgba(255, 255, 255, 0.13);
+      border-left: 3px solid #fff;
+      padding-left: 40px;
+    }
+
+    /* ========== Divider Between Sections ========== */
+    .sidebar-menu .sidebar-divider {
+      height: 1px;
+      margin: 14px 0;
+      background: rgba(255, 255, 255, 0.13);
+      border: none;
+    }
+
+    /* ========== Close Button ========== */
+    .sidebar .close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 7px;
+      transition: color .23s;
+    }
+
+    .sidebar .close-btn:hover {
+      color: #ddd;
+    }
+
+    /* @media only screen and (min-width: 601px) and (max-width: 900px) {
     .menueInNaveBar ul {
         display: none;
     }
@@ -185,475 +665,578 @@
     }
   } */
 
-      .reminder-dot::after {
-        content: "";
-        display: block;
-        width: 8px;
-        height: 8px;
-        background-color: #4caf50; /* green dot */
-        border-radius: 50%;
-        position: absolute;
-        bottom: 6px;
-        right: 6px;
+    .reminder-dot::after {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background-color: #4caf50;
+      /* green dot */
+      border-radius: 50%;
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+    }
+
+    .main-container {
+      display: flex;
+      /* Use flexbox for the main layout */
+      justify-content: space-between;
+      /* Space between calendar and details */
+      width: 100%;
+      /* Set to 100% width */
+      margin-top: 20px;
+      /* Space below navbar */
+    }
+
+    .calendar-container {
+      background: white;
+      border-radius: 30px;
+      padding: 30px;
+      width: 50%;
+      height: 92vh;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      /* flex-wrap: wrap; */
+      animation: fadeInUp 1s ease;
+      margin: 20px;
+      align-self: flex-start;
+      border: 2px solid green;
+    }
+
+    .details-container {
+      background: white;
+      border-radius: 30px;
+      padding: 30px;
+      width: 45%;
+      height: 92vh;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      align-self: flex-start;
+      /* border:3px solid blue; */
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
       }
 
-      .calendar-container {
-        background: white;
-        border-radius: 30px;
-        padding: 30px;
-        width: 45%;
-        height: 92vh;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-        animation: fadeInUp 1s ease;
-        margin: 20px;
-        align-self: flex-start;
+      100% {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      .details-container {
-        background: white;
-        border-radius: 30px;
-        padding: 30px;
-        width: 45%;
-        height: 92vh;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 20px;
-        align-self: flex-start;
-        /* border:3px solid blue; */
-      }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #4c4cff;
+      color: white;
+      border-radius: 20px 20px 0 0;
+      padding: 15px 25px;
+      font-size: 30px;
+    }
 
-      @keyframes fadeInUp {
-        0% {
-          opacity: 0;
-          transform: translateY(40px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+    .calendar-header span {
+      cursor: pointer;
+    }
 
-      .calendar-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background:#4c4cff;
-        color: white;
-        border-radius: 20px 20px 0 0;
-        padding: 15px 25px;
-        font-size: 30px;
-      }
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      padding: 15px 0;
+      font-weight: bold;
+      color: #4c4cff;
+      font-size: 22px;
+    }
 
-      .calendar-header span {
-        cursor: pointer;
-      }
-
-      .calendar-days {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        text-align: center;
-        padding: 15px 0;
-        font-weight: bold;
-        color: #4c4cff;
-        font-size: 22px;
-      }
-
-      /* .calendar-dates {
+    /* .calendar-dates {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         text-align: center;
         font-size: 24px;
         flex-grow: 1;
       } */
-       .calendar-dates {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: 60px; /* adjust height as needed */
-  gap: 16px;
-  margin-top: 20px;
-  font-size: 20px; 
-}
+    .calendar-dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-auto-rows: 60px;
+      /* adjust height as needed */
+      gap: 16px;
+      margin-top: 20px;
+      font-size: 20px;
+    }
 
 
-      .date {
-        padding: 22px;
-        margin: 6px;
-        transition: all 0.3s ease-in-out;
-        cursor: pointer;
-        position: relative;
-        border-radius: 8px;
-      }
+    .date {
+      padding: 22px;
+      margin: 6px;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      position: relative;
+      border-radius: 8px;
+    }
 
-      .date:hover {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      }
+    .date:hover {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 
-      .low:hover {
-        background-color: #c6f6d5;
-      }
-      .medium:hover {
-        background-color: #fefcbf;
-      }
-      .high:hover {
-        background-color: #feb2b2;
-      }
+    .low:hover {
+      background-color: #c6f6d5;
+    }
 
-      .emi-circle::after {
-        content: "";
-        display: block;
-        width: 8px;
-        height: 8px;
-        background-color: #4c4cff;
-        border-radius: 50%;
-        position: absolute;
-        bottom: 6px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
+    .medium:hover {
+      background-color: #fefcbf;
+    }
 
-      .reminder-dot::after {
-        content: "";
-        display: block;
-        width: 8px;
-        height: 8px;
-        background-color: #4caf50; /* green dot for reminders */
-        border-radius: 50%;
-        position: absolute;
-        bottom: 6px;
-        right: 6px;
-      }
+    .high:hover {
+      background-color: #feb2b2;
+    }
 
-      .spend-card {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 12px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        width: 500px;
-        max-height: 600px;
-        overflow-y: auto;
-        z-index: 1000;
-      }
+    .emi-circle::after {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background-color: #4c4cff;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-      .spend-card h3 {
-        margin-bottom: 20px;
-        color:#4c4cff;
-        font-size: 28px;
-      }
+    .reminder-dot::after {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background-color: #4caf50;
+      /* green dot for reminders */
+      border-radius: 50%;
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+    }
 
-      .item {
-        background: #f4f4f4;
-        padding: 15px 20px;
-        margin: 12px 0;
-        border-radius: 12px;
-        font-size: 16px;
-      }
+    .spend-card {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 500px;
+      max-height: 600px;
+      overflow-y: auto;
+      z-index: 1000;
+      /* color:2px solid green; */
+    }
 
-      .item-desc {
-        font-size: 14px;
-        color: #666;
-        margin-left: 15px;
-        margin-top: 5px;
-        border-left: 2px solid #4c4cff;
-        padding-left: 8px;
-      }
+    .spend-card h3 {
+      margin-bottom: 20px;
+      color: #4c4cff;
+      font-size: 28px;
+    }
 
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.4);
-        display: none;
-        z-index: 9;
-      }
+    .item {
+      background: #f4f4f4;
+      padding: 15px 20px;
+      margin: 12px 0;
+      border-radius: 12px;
+      font-size: 16px;
+      /* border:2px solid blue; */
+    }
 
-      /* .details {
+    .item-desc {
+      font-size: 14px;
+      color: #666;
+      margin-left: 15px;
+      margin-top: 5px;
+      border-left: 2px solid #4c4cff;
+      padding-left: 8px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 9;
+    }
+
+    /* .details {
         font-size: 24px;
         margin-bottom: 20px;
         color: #e84da8;
 
       } */
-          .details {
-        background: #ffffff;
-        padding: 25px 48px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        text-align: center; /* Center text inside */
-        max-width: 520px;
-        height: 490px;
-        width: 100%;
-        /* border: 2px solid green; */
-      }
-        .details-heading {
-        font-size: 34px;
-        font-weight: bold;
-        margin-top: 40px;
-        margin-bottom: 24px;
-        color: #333;
-        }
+    .details {
+      background: #ffffff;
+      padding: 25px 48px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      /* Center text inside */
+      max-width: 520px;
+      height: 490px;
+      width: 100%;
+      border: 2px solid green;
+    }
 
-        .details-item {
-          font-size: 20px;
-          margin: 16px 0;
-          color: #555;
-        }
-      .details-subheading {
-        font-size: 30px;
-        font-weight: 600;
-        margin-top: 30px;
-        margin-bottom: 20px;
-        color: #2a2a2a;
-      }
-.details input,
-.details button {
-  margin: 10px 10px;
-  padding: 8px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  /* border:1px solid #e84da8; */
-}
-.details button {
-  background-color: #4c4cff;
-  /* border:2px solid #e84da8; */
-  color: white;
-  border: none;
-  cursor: pointer;
-}
+    .details-heading {
+      font-size: 34px;
+      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 24px;
+      color: #333;
+    }
 
-.details button:hover {
-  background-color: #4c4cff;
-}
-      .add-purpose {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #eee;
-      }
-      #monthlyBreakdown {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-top: 10px;
-      }
-      #emiReminder {
-        animation: pulse 1.5s infinite;
-      }
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.02);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
+    .details-item {
+      font-size: 20px;
+      margin: 16px 0;
+      color: #555;
+    }
 
-      .input-field {
-        margin-top: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 80%;
+    .details-subheading {
+      font-size: 30px;
+      font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      color: #2a2a2a;
+    }
+
+    .details input,
+    .details button {
+      margin: 10px 10px;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      /* border:1px solid #e84da8; */
+    }
+
+    .details button {
+      background-color: #4c4cff;
+      /* border:2px solid #e84da8; */
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .details button:hover {
+      background-color: #4c4cff;
+    }
+
+    .add-purpose {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    #monthlyBreakdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    #emiReminder {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
       }
 
-      button {
-        font-size: 18px;
-        padding: 10px 16px;
-        background: white;
-        color:#4c4cff;
-        border: 2px solid #4c4cff;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+      50% {
+        transform: scale(1.02);
       }
 
-      button:hover {
-        background-color: #4c4cff;
-        color: white;
+      100% {
+        transform: scale(1);
       }
+    }
 
-      .dropdown {
-        position: absolute;
-        background: white;
-        color: #333;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 10px;
-        z-index: 999;
-        max-height: 300px;
+    .input-field {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 80%;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 16px;
+      background: white;
+      color: #4c4cff;
+      border: 2px solid #4c4cff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4c4cff;
+      color: white;
+    }
+
+    .dropdown {
+      position: absolute;
+      background: white;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      z-index: 999;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .dropdown div {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .dropdown div:hover {
+      background: #f0f0f0;
+    }
+
+    #reminder-date,
+    #reminder-purpose {
+      margin-top: 4px;
+    }
+
+    /* ✅ Responsive Design for Tablets and Mobiles */
+    @media screen and (max-width: 1024px) {
+      body {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         overflow-y: auto;
       }
 
-      .dropdown div {
-        padding: 8px 12px;
-        cursor: pointer;
-      }
-
-      .dropdown div:hover {
-        background: #f0f0f0;
-      }
-      #reminder-date,
-      #reminder-purpose {
-        margin-top: 4px;
-      }
-      /* ✅ Responsive Design for Tablets and Mobiles */
-@media screen and (max-width: 1024px) {
-  body {
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow-y: auto;
-  }
-
-  .calendar-container,
-  /* .details-container {
+      .calendar-container,
+      /* .details-container {
     width: 90%;
     height: auto;
     margin: 10px 0; */
-    /* border:3px solid red; */
-  /* } */
-  .details-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  /* border:3px solid red; */
-}
+      /* border:3px solid red; */
+      /* } */
+      .details-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        /* border:3px solid red; */
+      }
 
-  .calendar-header {
-    font-size: 24px;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+      .calendar-header {
+        font-size: 24px;
+        flex-direction: row;
+        justify-content: space-between;
+      }
 
-  .calendar-days {
-    font-size: 16px;
-  }
+      .calendar-days {
+        font-size: 16px;
+      }
 
-  .calendar-dates {
-    font-size: 18px;
-  }
+      .calendar-dates {
+        font-size: 18px;
+      }
 
-  .date {
-    padding: 14px;
-    margin: 4px;
-  }
+      .date {
+        padding: 14px;
+        margin: 4px;
+      }
 
-  .spend-card {
-    width: 90%;
-    max-width: 95%;
-    padding: 16px;
-    font-size: 16px;
-  }
+      .spend-card {
+        width: 90%;
+        max-width: 95%;
+        padding: 16px;
+        font-size: 16px;
+      }
 
-  .item {
-    font-size: 14px;
-  }
+      .item {
+        font-size: 14px;
+      }
 
-  .item-desc {
-    font-size: 13px;
-  }
+      .item-desc {
+        font-size: 13px;
+      }
 
-  button {
-    font-size: 16px;
-    padding: 8px 12px;
-  }
+      button {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
 
-  .input-field {
-    width: 100%;
-    font-size: 16px;
-  }
-}
-/* 🛠 Fix overflow issue at medium screen widths */
-@media screen and (max-width: 1300px) {
-  .calendar-container,
-  .details-container {
-    width: 100%;
-    margin: 10px auto;
-  }
+      .input-field {
+        width: 100%;
+        font-size: 16px;
+      }
+    }
 
-  .calendar-dates {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    font-size: 16px;
-  }
+    @media (max-width: 900px) {
+      .main-container {
+        flex-direction: column;
+        /* Stack calendar and details vertically */
+        align-items: center;
+        /* Center align items */
+      }
 
-  .date {
-    padding: 10px;
-    margin: 4px;
-    font-size: 14px;
-  }
+      .calendar-container,
+      .details-container {
+        width: 90%;
+        /* Use 90% width on smaller screens */
+        margin: 10px 0;
+        /* Add margin for spacing */
+      }
+    }
 
-  .calendar-header {
-    font-size: 24px;
-    padding: 10px 20px;
-  }
+    @media (max-width: 600px) {
+      .calendar-header {
+        font-size: 20px;
+        /* Further adjust font size */
+      }
 
-  .calendar-days {
-    font-size: 14px;
-  }
+      .calendar-days {
+        font-size: 14px;
+        /* Further adjust font size */
+      }
 
-  .spend-card {
-    width: 95%;
-    font-size: 14px;
-    padding: 16px;
-  }
-}
+      .calendar-dates {
+        font-size: 14px;
+        /* Further adjust font size */
+      }
 
-/* 🧱 Stack on smaller screens */
-@media screen and (max-width: 768px) {
-  body {
-    flex-direction: column;
-    padding: 10px;
-  }
+      .date {
+        padding: 10px;
+        /* Further adjust padding */
+        font-size: 12px;
+        /* Further adjust font size */
+      }
 
-  .calendar-container,
-  .details-container {
-    width: 95%;
-    margin: 10px auto;
-  }
+      .spend-card {
+        width: 95%;
+        /* Use 95% width for spend card */
+        padding: 14px;
+        /* Further adjust padding */
+        font-size: 14px;
+        /* Further adjust font size */
+      }
 
-  .calendar-header {
-    flex-direction: column;
-    align-items: center;
-    font-size: 20px;
-  }
+      .item {
+        font-size: 13px;
+        /* Further adjust font size for items */
+      }
 
-  .calendar-days {
-    font-size: 12px;
-  }
+      .item-desc {
+        font-size: 12px;
+        /* Further adjust font size for item descriptions */
+      }
 
-  .calendar-dates {
-    font-size: 12px;
-  }
+      button {
+        font-size: 14px;
+        /* Further adjust button font size */
+        padding: 6px 10px;
+        /* Further adjust button padding */
+      }
+    }
 
-  .date {
-    padding: 8px;
-    margin: 3px;
-    font-size: 12px;
-  }
+    /* 🛠 Fix overflow issue at medium screen widths */
+    @media screen and (max-width: 1300px) {
 
-  .spend-card {
-    width: 95%;
-    font-size: 13px;
-  }
-}
+      .calendar-container,
+      .details-container {
+        width: 100%;
+        margin: 10px auto;
+      }
+
+      .calendar-dates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        font-size: 16px;
+      }
+
+      .date {
+        padding: 10px;
+        margin: 4px;
+        font-size: 14px;
+      }
+
+      .calendar-header {
+        font-size: 24px;
+        padding: 10px 20px;
+      }
+
+      .calendar-days {
+        font-size: 14px;
+      }
+
+      .spend-card {
+        width: 95%;
+        font-size: 14px;
+        padding: 16px;
+      }
+    }
+
+    /* 🧱 Stack on smaller screens */
+    @media screen and (max-width: 768px) {
+      body {
+        flex-direction: column;
+        padding: 10px;
+      }
+
+      .calendar-container,
+      .details-container {
+        width: 95%;
+        margin: 10px auto;
+      }
+
+      .calendar-header {
+        flex-direction: column;
+        align-items: center;
+        font-size: 20px;
+      }
+
+      .calendar-days {
+        font-size: 12px;
+      }
+
+      .calendar-dates {
+        font-size: 12px;
+      }
+
+      .date {
+        padding: 8px;
+        margin: 3px;
+        font-size: 12px;
+      }
+
+      .spend-card {
+        width: 95%;
+        font-size: 13px;
+      }
+    }
 
 
-/* @media screen and (max-width: 600px) {
+    /* @media screen and (max-width: 600px) {
   .calendar-days {
     font-size: 14px;
   }
@@ -694,8 +1277,8 @@
   }
 } */
 
-      /* ✅ Responsive Container */
-/* .calendar-container {
+    /* ✅ Responsive Container */
+    /* .calendar-container {
   width: 90%;
   max-width: 800px;
   margin: auto;
@@ -703,13 +1286,13 @@
 }
 
 /* ✅ Responsive Date Grid */
-/* .dates {
+    /* .dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
 } */
 
-/* .date {
+    /* .date {
   padding: 10px;
   text-align: center;
   border-radius: 5px;
@@ -718,8 +1301,8 @@
   font-size: 14px;
 } */
 
-/* ✅ Popup Card */
-/* #popup-card {
+    /* ✅ Popup Card */
+    /* #popup-card {
   position: fixed;
   top: 10%;
   left: 50%;
@@ -735,8 +1318,8 @@
   max-height: 80vh;
 } */
 
-/* ✅ Overlay */
-/* #overlay {
+    /* ✅ Overlay */
+    /* #overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -747,8 +1330,8 @@
   display: none;
 } */
 
-/* ✅ Mobile Responsiveness */
-/* @media screen and (max-width: 600px) {
+    /* ✅ Mobile Responsiveness */
+    /* @media screen and (max-width: 600px) {
   .calendar-container {
     width: 95%;
     padding: 5px;
@@ -763,13 +1346,13 @@
     width: 95%;
     padding: 15px;
     font-size: 14px;
-  } */ 
-/* } */
+  } */
+    /* } */
+  </style>
+</head>
 
-    </style>
-  </head>
-  <body>
-    <!-- <nav>
+<body>
+  <!-- <nav>
         <div class="menueInNaveBar">
 
             <div class="sidebarIcon" id="mobileMenuBtn">
@@ -799,6 +1382,49 @@
 
         </div>
        </nav>     -->
+  <header>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="logoForSidebarmenue.png" alt="Budget Buddy logo">
+          <span>Budget Buddy</span>
+        </div>
+        <button class="close-btn" id="closeSidebarBtn" aria-label="Close sidebar">&times;</button>
+      </div>
+      <div class="sidebar-menu">
+        <a href="./index.html" class=""><i class="fas fa-home"></i>Home</a>
+        <a href="./inputPage6.html"><i class="fas fa-calendar-alt"></i>Input</a>
+        <a href="./calendarfinal.html"><i class="fas fa-lightbulb"></i>Calender</a>
+        <a href="./goalPage.html"><i class="fas fa-chart-line"></i>Goal</a>
+        <a href="./graphpage.html"><i class="fas fa-wallet"></i>Graph</a>
+
+
+      </div>
+    </aside>
+    <nav>
+      <div class="menueInNaveBar">
+        <div class="sidebarIcon" id="mobileMenuBtn">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <a href="#" class="logo">
+          <img src="Screenshot_2025-07-22_211511-removebg-preview&#46;png" class="logo-img" />
+        </a>
+        <ul>
+          <li><a href="./index.html" class="active">Home</a></li>
+
+          <li><a href="./inputPage6.html">Input</a></li>
+          <li><a href="./calendarfinal.html">Calender</a></li>
+          <li><a href="./goalPage.html">Goal</a></li>
+          <li><a href="./graphpage.html">Graph</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <a href="login.html?form=register" class="btn-primary">Log Out</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="main-container">
     <div class="calendar-container">
       <div class="calendar-header">
         <button onclick="changeMonth(-1)">📅</button>
@@ -823,64 +1449,37 @@
       <div class="calendar-dates" id="dates"></div>
     </div>
 
-    <!-- <div class="details-container">
-      <div class="details" id="details">
-        <h3 id="monthlyDetails">
-        </h3>
-        <div id="monthlySpendingDetails">
-          <div id="monthlyBreakdown"></div>
-        </div>
-
-        <div class="card">
-          <h2>Set Reminder</h2>
-          <label for="reminder-date">Reminder Date:</label>
-          <input type="date" id="reminder-date" required /><br /><br />
-
-          <label for="reminder-purpose">Purpose:</label>
-          <input
-            type="text"
-            id="reminder-purpose"
-            placeholder="e.g., Pay Rent, Bill Due"
-            required
-          /><br /><br />
-
-          <button onclick="saveReminder()">Set Reminder</button>
-        </div>
-      </div>
-    </div> -->
     <div class="details-container">
-  <div class="details" id="details">
-    <h2 class="details-heading">July 2025 Summary</h2>
-    <p class="details-item">Total Spending: ₹1500</p>
-    <p class="details-item">Days with Expenses: 1</p>
-    <h3 class="details-subheading">Set Reminder</h3>
-    <input type="date" id="reminder-date" />
-    <input type="text" id="reminder-purpose" placeholder="Purpose" />
-    <button onclick="saveReminder()">Save</button>
+      <div class="details" id="details">
+        <h2 class="details-heading">July 2025 Summary</h2>
+        <p class="details-item">Total Spending: ₹1500</p>
+        <p class="details-item">Days with Expenses: 1</p>
+        <h3 class="details-subheading">Set Reminder</h3>
+        <input type="date" id="reminder-date" />
+        <input type="text" id="reminder-purpose" placeholder="Purpose" />
+        <button onclick="saveReminder()">Save</button>
+      </div>
+    </div>
   </div>
-</div>
 
 
-    <div class="overlay" id="overlay"></div>
-    <div class="spend-card" id="spendCard">
-      <h3 id="selectedDateDetails">Select a date to see details</h3>
-      <div
-        id="emiReminder"
-        style="
+  <div class="overlay" id="overlay"></div>
+  <div class="spend-card" id="spendCard">
+    <h3 id="selectedDateDetails">Select a date to see details</h3>
+    <div id="emiReminder" style="
           display: none;
           background: #ffebee;
           padding: 10px;
           border-radius: 8px;
           color: #d32f2f;
           font-weight: bold;
-        "
-      >
-        ⚠️ EMI Payment Due Today! ⚠️
-      </div>
-      <div id="spendingDetails"></div>
-      <button onclick="closeSpendCard()">Close</button>
+        ">
+      ⚠️ EMI Payment Due Today! ⚠️
     </div>
-    <!-- <div style="margin-top: 30px">
+    <div id="spendingDetails"></div>
+    <button onclick="closeSpendCard()">Close</button>
+  </div>
+  <!-- <div style="margin-top: 30px">
       <h2 style="color: #e84da8">LocalStorage Data (Budget Records)</h2>
       <table
         id="storageTable"
@@ -900,679 +1499,639 @@
       </table>
     </div> -->
 
-    <script>
-      const datesEl = document.getElementById("dates");
-      const monthLabel = document.getElementById("monthLabel");
-      const yearLabel = document.getElementById("yearLabel");
-      const selectedDateDetails = document.getElementById(
-        "selectedDateDetails"
-      );
-      const emiReminder = document.getElementById("emiReminder");
-      const spendingDetails = document.getElementById("spendingDetails");
-      const extraDataInput = document.getElementById("extraData");
-      const monthlySpendingDetails = document.getElementById(
-        "monthlySpendingDetails"
-      );
-      const spendCard = document.getElementById("spendCard");
-      const overlay = document.getElementById("overlay");
+  <script>
+   
+    const datesEl = document.getElementById("dates");
+    const monthLabel = document.getElementById("monthLabel");
+    const yearLabel = document.getElementById("yearLabel");
+    const selectedDateDetails = document.getElementById(
+      "selectedDateDetails"
+    );
+    const emiReminder = document.getElementById("emiReminder");
+    const spendingDetails = document.getElementById("spendingDetails");
+    const extraDataInput = document.getElementById("extraData");
+    const monthlySpendingDetails = document.getElementById(
+      "monthlySpendingDetails"
+    );
+    const spendCard = document.getElementById("spendCard");
+    const overlay = document.getElementById("overlay");
 
-      let currentMonth = 6; // July
-      let currentYear = 2025;
+    let currentMonth = 7; // August
+    let currentYear = 2025;
 
-      const NET_MONTHLY_INCOME =
-        parseFloat(localStorage.getItem("income")) || 50000; // fallback ₹50,000
+    const NET_MONTHLY_INCOME =
+      parseFloat(localStorage.getItem("income")) || 50000; // fallback ₹50,000
 
-      const categoryThresholds = {
-        housing: [0.25, 0.3],
-        utilities: [0.05, 0.07],
-        food: [0.1, 0.15],
-        transport: [0.05, 0.1],
-        entertainment: [0.05, 0.08],
-        health: [0.05, 0.07],
-        education: [0.05, 0.1],
-        emi: [0.05, 0.1],
-        others: [0.03, 0.05],
-      };
+    const categoryThresholds = {
+      housing: [0.25, 0.3],
+      utilities: [0.05, 0.07],
+      food: [0.1, 0.15],
+      transport: [0.05, 0.1],
+      entertainment: [0.05, 0.08],
+      health: [0.05, 0.07],
+      education: [0.05, 0.1],
+      emi: [0.05, 0.1],
+      others: [0.03, 0.05],
+    };
 
-      const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-      function getTotalSpendingForDate(day) {
-        // const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-        const records = window.budgetRecords || [];
+    function getTotalSpendingForDate(day) {
+      const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+      // const today = new Date(currentYear, currentMonth, day)
+      //   .toISOString()
+      //   .split("T")[0];
+      const dateObj = new Date(currentYear, currentMonth, day);
+      const today = dateObj.getFullYear() + "-" +
+        String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
+        String(dateObj.getDate()).padStart(2, '0');
+      const record = records.find((record) => record.date === today);
+      return record
+        ? record.expenses.reduce((sum, e) => sum + e.amount, 0)
+        : 0;
+    }
 
-//         cconst datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
-// const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
+    function getMonthlySpending() {
+      const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+      const purposes = JSON.parse(localStorage.getItem("datePurposes")) || [];
 
-// const records = datedExpenses.map((date, i) => ({
-//   date: date,
-//   expenses: JSON.parse(expensesList[i])
-// }));
+      const monthlySpending = records.filter((record) => {
+        const recordDate = new Date(record.date);
+        return (
+          recordDate.getFullYear() === currentYear &&
+          recordDate.getMonth() === currentMonth
+        );
+      });
 
+      // Calculate totals
+      const categories = {};
+      let totalMonthlySpending = 0;
 
-        // const today = new Date(currentYear, currentMonth, day)
-        //   .toISOString()
-        //   .split("T")[0];
-           const dateObj = new Date(currentYear, currentMonth, day);
-           const today = dateObj.getFullYear() + "-" +
-              String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
-              String(dateObj.getDate()).padStart(2, '0');
-           const record = records.find((record) => record.date === today);
-           return record
-          ? record.expenses.reduce((sum, e) => sum + e.amount, 0)
-          : 0;
-      }
-
-      function getMonthlySpending() {
-        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-        const purposes = JSON.parse(localStorage.getItem("datePurposes")) || [];
-
-        const monthlySpending = records.filter((record) => {
-          const recordDate = new Date(record.date);
-          return (
-            recordDate.getFullYear() === currentYear &&
-            recordDate.getMonth() === currentMonth
-          );
+      monthlySpending.forEach((record) => {
+        record.expenses.forEach((expense) => {
+          const cat = expense.category.toLowerCase();
+          categories[cat] = (categories[cat] || 0) + expense.amount;
+          totalMonthlySpending += expense.amount;
         });
+      });
 
-        // Calculate totals
-        const categories = {};
-        let totalMonthlySpending = 0;
-
-        monthlySpending.forEach((record) => {
-          record.expenses.forEach((expense) => {
-            const cat = expense.category.toLowerCase();
-            categories[cat] = (categories[cat] || 0) + expense.amount;
-            totalMonthlySpending += expense.amount;
-          });
-        });
-
-        // Update UI
-        monthlySpendingDetails.innerHTML = `
+      // Update UI
+      monthlySpendingDetails.innerHTML = `
         <h4>${months[currentMonth]} ${currentYear} Summary</h4>
         <div><strong>Total Spending:</strong> ₹${totalMonthlySpending}</div>
         <div><strong>Days with Expenses:</strong> ${monthlySpending.length}</div>
       `;
 
-        // Monthly breakdown
-        const breakdown = document.getElementById("monthlyBreakdown");
-        if (breakdown) {
-          breakdown.innerHTML = Object.entries(categories)
-            .map(
-              ([category, amount]) => `
+      // Monthly breakdown
+      const breakdown = document.getElementById("monthlyBreakdown");
+      if (breakdown) {
+        breakdown.innerHTML = Object.entries(categories)
+          .map(
+            ([category, amount]) => `
             <div class="category-item">
               <span>${category}: ₹${amount}</span>
             </div>`
-            )
-            .join("");
-        }
+          )
+          .join("");
       }
+    }
 
-//       function renderCalendar() {
-//   datesEl.innerHTML = "";
-//   const date = new Date(currentYear, currentMonth, 1);
-//   monthLabel.innerText = months[currentMonth];
-//   yearLabel.innerText = currentYear;
+    //       function renderCalendar() {
+    //   datesEl.innerHTML = "";
+    //   const date = new Date(currentYear, currentMonth, 1);
+    //   monthLabel.innerText = months[currentMonth];
+    //   yearLabel.innerText = currentYear;
 
-//   const firstDay = date.getDay();
-//   const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
-//   const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+    //   const firstDay = date.getDay();
+    //   const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+    //   const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
 
-//   for (let i = 0; i < firstDay; i++) {
-//     const empty = document.createElement("div");
-//     datesEl.appendChild(empty);
-//   }
+    //   for (let i = 0; i < firstDay; i++) {
+    //     const empty = document.createElement("div");
+    //     datesEl.appendChild(empty);
+    //   }
 
-//   for (let day = 1; day <= lastDate; day++) {
-//     const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-//     const record = records.find((r) => r.date === isoDate);
-//     let level = "low"; // default green
+    //   for (let day = 1; day <= lastDate; day++) {
+    //     const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    //     const record = records.find((r) => r.date === isoDate);
+    //     let level = "low"; // default green
 
-//     if (record && record.expenses && record.expenses.length > 0) {
-//       for (const exp of record.expenses) {
-//         const cat = exp.category.toLowerCase();
-//         const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
-//         const minAmt = NET_MONTHLY_INCOME * minPct;
-//         const maxAmt = NET_MONTHLY_INCOME * maxPct;
+    //     if (record && record.expenses && record.expenses.length > 0) {
+    //       for (const exp of record.expenses) {
+    //         const cat = exp.category.toLowerCase();
+    //         const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
+    //         const minAmt = NET_MONTHLY_INCOME * minPct;
+    //         const maxAmt = NET_MONTHLY_INCOME * maxPct;
 
-//         if (exp.amount > maxAmt) {
-//           level = "high"; // red
-//           break;
-//         } else if (exp.amount >= minAmt) {
-//           level = "medium"; // yellow
-//         }
-//       }
-//     }
-
-//     const dateEl = document.createElement("div");
-//     dateEl.className = `date ${level}`;
-//     dateEl.innerText = day;
-
-//     // ✅ Use closure to correctly capture each day's value
-//     dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
-
-//     // ✅ Add reminder dot if a reminder is set for this date
-//     const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-//     if (reminders.some((r) => r.date === isoDate)) {
-//       dateEl.classList.add("reminder-dot");
-//     }
-
-//     datesEl.appendChild(dateEl);
-//   }
-// }
-      let records = [];
-
-  const datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
-  const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
-
-  // Safely create records only if lengths match
-  if (datedExpenses.length === expensesList.length) {
-    records = datedExpenses.map((date, i) => ({
-      date: date,
-      expenses: JSON.parse(expensesList[i])
-    }));
-  }
-
-  // Make it available globally for all functions
-  window.budgetRecords = records;
-function renderCalendar() {
-  datesEl.innerHTML = "";
-  const date = new Date(currentYear, currentMonth, 1);
-  monthLabel.innerText = months[currentMonth];
-  yearLabel.innerText = currentYear;
-
-  const firstDay = date.getDay();
-  const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-  const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-
-  for (let i = 0; i < firstDay; i++) {
-    const empty = document.createElement("div");
-    datesEl.appendChild(empty);
-  }
-
-  for (let day = 1; day <= lastDate; day++) {
-    // const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')};`
-    const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    
-    // const record = records.find((r) => r.date === isoDate);
-    const record = records.find((r) =>
-  new Date(r.date).toISOString().split("T")[0] === isoDate
-);
-
-console.log("Comparing calendar date:", isoDate, "Matched record:", record);
-
-    // let level = "low";
-
-    // if (record && record.expenses && record.expenses.length > 0) {
-    //   for (const exp of record.expenses) {
-    //     const cat = exp.category.toLowerCase();
-    //     const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
-    //     const minAmt = NET_MONTHLY_INCOME * minPct;
-    //     const maxAmt = NET_MONTHLY_INCOME * maxPct;
-
-    //     if (exp.amount > maxAmt) {
-    //       level = "high";
-    //       break;
-    //     } else if (exp.amount >= minAmt) {
-    //       level = "medium";
+    //         if (exp.amount > maxAmt) {
+    //           level = "high"; // red
+    //           break;
+    //         } else if (exp.amount >= minAmt) {
+    //           level = "medium"; // yellow
+    //         }
+    //       }
     //     }
+
+    //     const dateEl = document.createElement("div");
+    //     dateEl.className = `date ${level}`;
+    //     dateEl.innerText = day;
+
+    //     // ✅ Use closure to correctly capture each day's value
+    //     dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+
+    //     // ✅ Add reminder dot if a reminder is set for this date
+    //     const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+    //     if (reminders.some((r) => r.date === isoDate)) {
+    //       dateEl.classList.add("reminder-dot");
+    //     }
+
+    //     datesEl.appendChild(dateEl);
     //   }
     // }
+    function renderCalendar() {
+      datesEl.innerHTML = "";
+      const date = new Date(currentYear, currentMonth, 1);
+      monthLabel.innerText = months[currentMonth];
+      yearLabel.innerText = currentYear;
 
-    // const dateEl = document.createElement("div");
-    // // dateEl.className = `date ${level};`
-    // dateEl.className = `date ${level}`;
-    // dateEl.innerText = day;
-    // dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+      const firstDay = date.getDay();
+      const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+      const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+      const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
 
-    // // ✅ Reminder check
-    // if (reminders.some((r) => r.date === isoDate)) {
-    //   console.log("✅ Reminder matched:", isoDate);
-    //   dateEl.classList.add("reminder-dot");
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        datesEl.appendChild(empty);
+      }
+
+      for (let day = 1; day <= lastDate; day++) {
+        // const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')};`
+        const isoDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+        const record = records.find((r) => r.date === isoDate);
+
+        // let level = "low";
+
+        // if (record && record.expenses && record.expenses.length > 0) {
+        //   for (const exp of record.expenses) {
+        //     const cat = exp.category.toLowerCase();
+        //     const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
+        //     const minAmt = NET_MONTHLY_INCOME * minPct;
+        //     const maxAmt = NET_MONTHLY_INCOME * maxPct;
+
+        //     if (exp.amount > maxAmt) {
+        //       level = "high";
+        //       break;
+        //     } else if (exp.amount >= minAmt) {
+        //       level = "medium";
+        //     }
+        //   }
+        // }
+
+        // const dateEl = document.createElement("div");
+        // // dateEl.className = `date ${level};`
+        // dateEl.className = `date ${level}`;
+        // dateEl.innerText = day;
+        // dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+
+        // // ✅ Reminder check
+        // if (reminders.some((r) => r.date === isoDate)) {
+        //   console.log("✅ Reminder matched:", isoDate);
+        //   dateEl.classList.add("reminder-dot");
+        // }
+
+        // datesEl.appendChild(dateEl);
+        let level = "low"; // default color
+        if (record && record.expenses && record.expenses.length > 0) {
+          for (const exp of record.expenses) {
+            const cat = exp.category.toLowerCase();
+            const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
+            const minAmt = NET_MONTHLY_INCOME * minPct;
+            const maxAmt = NET_MONTHLY_INCOME * maxPct;
+
+            if (exp.amount > maxAmt) {
+              level = "high"; // red
+              break;
+            } else if (exp.amount >= minAmt) {
+              level = "medium"; // yellow
+            }
+          }
+        }
+
+        const dateEl = document.createElement("div");
+        dateEl.className = `date ${level}`;
+
+        // ✅ Always add click event, even if there's no expense (e.g., just reminder)
+        dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+
+        // ✅ Add circle/dot if a reminder exists
+        const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+        if (reminders.some((r) => r.date === isoDate)) {
+          dateEl.classList.add("reminder-dot");
+        }
+
+        dateEl.innerText = day;
+        datesEl.appendChild(dateEl);
+
+      }
+      (function showUpcomingReminders() {
+        const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+        const today = new Date();
+
+        reminders.forEach(reminder => {
+          const reminderDate = new Date(reminder.date);
+          const diffDays = Math.floor((reminderDate - today) / (1000 * 60 * 60 * 24));
+
+          if (diffDays === 2) {
+            alert(`⏰ Reminder in 2 days: ${reminder.purpose} on ${reminder.date}`);
+          }
+          else if (diffDays == 1) {
+            alert(`⏰ Reminder in 1 days: ${reminder.purpose} on ${reminder.date}`);
+          }
+          else if (diffDays == 0) {
+            alert(`⏰ Reminder : ${reminder.purpose} on ${reminder.date}`);
+          }
+
+        });
+      })();
+
+    }
+
+
+    //       function showSpending(day) {
+    //   const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+    //   // const today = new Date(currentYear, currentMonth, day)
+    //   //   .toISOString()
+    //   //   .split("T")[0];
+    //   const dateObj = new Date(currentYear, currentMonth, day);
+    // const today = dateObj.getFullYear() + "-" +
+    //               String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
+    //               String(dateObj.getDate()).padStart(2, '0');
+    //   const record = records.find((record) => record.date === today) || {
+    //     expenses: [],
+    //   };
+
+    //   selectedDateDetails.innerText = `Details on ${months[currentMonth]} ${day}, ${currentYear}`;
+
+    //   const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+    // const reminderForDate = reminders.find((r) => r.date === today);
+
+    // if (reminderForDate) {
+    //   const reminderHtml = `<div style="color: green; margin-bottom: 8px;">
+    //     🔔 <strong>Reminder:</strong> ${reminderForDate.purpose}
+    //   </div>`;
+    //   spendingHtml = reminderHtml + spendingHtml;
     // }
 
-    // datesEl.appendChild(dateEl);
-    let level = "low"; // default color
-if (record && record.expenses && record.expenses.length > 0) {
-  for (const exp of record.expenses) {
-    const cat = exp.category.toLowerCase();
-    const [minPct, maxPct] = categoryThresholds[cat] || [0, 1];
-    const minAmt = NET_MONTHLY_INCOME * minPct;
-    const maxAmt = NET_MONTHLY_INCOME * maxPct;
+    //   const spending = record.expenses.reduce(
+    //     (acc, expense) => {
+    //       acc[expense.category.toLowerCase()] =
+    //         (acc[expense.category.toLowerCase()] || 0) + expense.amount;
+    //       return acc;
+    //     },
+    //     {
+    //       housing: 0,
+    //       utilities: 0,
+    //       food: 0,
+    //       transport: 0,
+    //       entertainment: 0,
+    //       health: 0,
+    //       education: 0,
+    //       emi: 0,
+    //       others: 0,
+    //     }
+    //   );
 
-    if (exp.amount > maxAmt) {
-      level = "high"; // red
-      break;
-    } else if (exp.amount >= minAmt) {
-      level = "medium"; // yellow
-    }
-  }
-}
+    //   let spendingHtml = "";
 
-const dateEl = document.createElement("div");
-dateEl.className = `date ${level}`;
+    //   if (record.expenses.length > 0) {
+    //     record.expenses.forEach((expense) => {
+    //       spendingHtml += `
+    //         <div class="item">
+    //           <strong>${expense.category}:</strong> ₹${expense.amount}
+    //           <div class="item-desc">${expense.description || "No description"}</div>
+    //         </div>`;
+    //     });
+    //   } else {
+    //     spendingHtml = "<div>No expenses recorded for this date.</div>";
+    //   }
 
-// ✅ Always add click event, even if there's no expense (e.g., just reminder)
-dateEl.addEventListener("click", ((d) => () => showSpending(d))(day));
+    //   const totalSpend = Object.values(spending).reduce(
+    //     (sum, val) => sum + val,
+    //     0
+    //   );
+    //   spendingHtml += `<div><strong>Total Spending:</strong> ₹${totalSpend}</div>`;
 
-// ✅ Add circle/dot if a reminder exists
-const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-if (reminders.some((r) => r.date === isoDate)) {
-  dateEl.classList.add("reminder-dot");
-}
+    //   // ✅ Update DOM BEFORE showing the modal
+    //   spendingDetails.innerHTML = spendingHtml;
+    //   emiReminder.style.display = spending.emi > 0 ? "block" : "none";
 
-dateEl.innerText = day;
-datesEl.appendChild(dateEl);
+    //   // ✅ Now show the modal
+    //   overlay.style.display = "block";
+    //   spendCard.style.display = "block";
+    // }
+    function showSpending(day) {
+      const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+      const dateObj = new Date(currentYear, currentMonth, day);
+      const today = dateObj.getFullYear() + "-" +
+        String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
+        String(dateObj.getDate()).padStart(2, '0');
 
-  }
-  (function showUpcomingReminders() {
-  const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-  const today = new Date();
+      const record = records.find((record) => record.date === today) || { expenses: [] };
+      selectedDateDetails.innerText = `Details on ${months[currentMonth]} ${day}, ${currentYear}`;
 
-  reminders.forEach(reminder => {
-    const reminderDate = new Date(reminder.date);
-    const diffDays = Math.floor((reminderDate - today) / (1000 * 60 * 60 * 24));
+      const spending = record.expenses.reduce(
+        (acc, expense) => {
+          acc[expense.category.toLowerCase()] =
+            (acc[expense.category.toLowerCase()] || 0) + expense.amount;
+          return acc;
+        },
+        {
+          housing: 0,
+          utilities: 0,
+          food: 0,
+          transport: 0,
+          entertainment: 0,
+          health: 0,
+          education: 0,
+          emi: 0,
+          others: 0,
+        }
+      );
 
-     if (diffDays === 2) {
-       alert(`⏰ Reminder in 2 days: ${reminder.purpose} on ${reminder.date}`);
-     }
-     else if(diffDays == 1) {
-             alert(`⏰ Reminder in 1 days: ${reminder.purpose} on ${reminder.date}`);
-      }
-     else if(diffDays == 0) {
-             alert(`⏰ Reminder : ${reminder.purpose} on ${reminder.date}`);
-     }
-    
-  });
-})();
+      let spendingHtml = "";
 
-}
-
-
-//       function showSpending(day) {
-//   const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-//   // const today = new Date(currentYear, currentMonth, day)
-//   //   .toISOString()
-//   //   .split("T")[0];
-//   const dateObj = new Date(currentYear, currentMonth, day);
-// const today = dateObj.getFullYear() + "-" +
-//               String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
-//               String(dateObj.getDate()).padStart(2, '0');
-//   const record = records.find((record) => record.date === today) || {
-//     expenses: [],
-//   };
-
-//   selectedDateDetails.innerText = `Details on ${months[currentMonth]} ${day}, ${currentYear}`;
-  
-//   const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-// const reminderForDate = reminders.find((r) => r.date === today);
-
-// if (reminderForDate) {
-//   const reminderHtml = `<div style="color: green; margin-bottom: 8px;">
-//     🔔 <strong>Reminder:</strong> ${reminderForDate.purpose}
-//   </div>`;
-//   spendingHtml = reminderHtml + spendingHtml;
-// }
-
-//   const spending = record.expenses.reduce(
-//     (acc, expense) => {
-//       acc[expense.category.toLowerCase()] =
-//         (acc[expense.category.toLowerCase()] || 0) + expense.amount;
-//       return acc;
-//     },
-//     {
-//       housing: 0,
-//       utilities: 0,
-//       food: 0,
-//       transport: 0,
-//       entertainment: 0,
-//       health: 0,
-//       education: 0,
-//       emi: 0,
-//       others: 0,
-//     }
-//   );
-
-//   let spendingHtml = "";
-  
-//   if (record.expenses.length > 0) {
-//     record.expenses.forEach((expense) => {
-//       spendingHtml += `
-//         <div class="item">
-//           <strong>${expense.category}:</strong> ₹${expense.amount}
-//           <div class="item-desc">${expense.description || "No description"}</div>
-//         </div>`;
-//     });
-//   } else {
-//     spendingHtml = "<div>No expenses recorded for this date.</div>";
-//   }
-
-//   const totalSpend = Object.values(spending).reduce(
-//     (sum, val) => sum + val,
-//     0
-//   );
-//   spendingHtml += `<div><strong>Total Spending:</strong> ₹${totalSpend}</div>`;
-
-//   // ✅ Update DOM BEFORE showing the modal
-//   spendingDetails.innerHTML = spendingHtml;
-//   emiReminder.style.display = spending.emi > 0 ? "block" : "none";
-
-//   // ✅ Now show the modal
-//   overlay.style.display = "block";
-//   spendCard.style.display = "block";
-// }
-function showSpending(day) {
-  const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-  const dateObj = new Date(currentYear, currentMonth, day);
-  const today = dateObj.getFullYear() + "-" +
-                String(dateObj.getMonth() + 1).padStart(2, '0') + "-" +
-                String(dateObj.getDate()).padStart(2, '0');
-
-  const record = records.find((record) => record.date === today) || { expenses: [] };
-  selectedDateDetails.innerText = `Details on ${months[currentMonth]} ${day}, ${currentYear}`;
-
-  const spending = record.expenses.reduce(
-    (acc, expense) => {
-      acc[expense.category.toLowerCase()] =
-        (acc[expense.category.toLowerCase()] || 0) + expense.amount;
-      return acc;
-    },
-    {
-      housing: 0,
-      utilities: 0,
-      food: 0,
-      transport: 0,
-      entertainment: 0,
-      health: 0,
-      education: 0,
-      emi: 0,
-      others: 0,
-    }
-  );
-
-  let spendingHtml = "";
-
-  // ✅ Check and add reminder if it exists
-  const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-  const reminderForDate = reminders.find((r) => r.date === today);
-  if (reminderForDate) {
-    spendingHtml += `<div style="color: green; margin-bottom: 8px;">
+      // ✅ Check and add reminder if it exists
+      const reminders = JSON.parse(localStorage.getItem("reminders")) || [];
+      const reminderForDate = reminders.find((r) => r.date === today);
+      if (reminderForDate) {
+        spendingHtml += `<div style="color: green; margin-bottom: 8px;">
       🔔 <strong>Reminder:</strong> ${reminderForDate.purpose}
     </div>`;
-  }
+      }
 
-  if (record.expenses.length > 0) {
-    record.expenses.forEach((expense) => {
-      spendingHtml += `
+      if (record.expenses.length > 0) {
+        record.expenses.forEach((expense) => {
+          spendingHtml += `
         <div class="item">
           <strong>${expense.category}:</strong> ₹${expense.amount}
           <div class="item-desc">${expense.description || "No description"}</div>
         </div>`;
-    });
-  } else if (!reminderForDate) {
-    spendingHtml += "<div>No expenses recorded for this date.</div>";
-  }
-
-  const totalSpend = Object.values(spending).reduce(
-    (sum, val) => sum + val,
-    0
-  );
-  if (record.expenses.length > 0) {
-    spendingHtml += `<div><strong>Total Spending:</strong> ₹${totalSpend}</div>`;
-  }
-
-  spendingDetails.innerHTML = spendingHtml;
-  emiReminder.style.display = spending.emi > 0 ? "block" : "none";
-
-  overlay.style.display = "block";
-  spendCard.style.display = "block";
-}
-
-
-
-      function closeSpendCard() {
-        overlay.style.display = "none";
-        spendCard.style.display = "none";
-      }
-
-      function addPurposeToDate() {
-        const day = parseInt(document.getElementById("purposeDay").value);
-        const category = document.getElementById("purposeCategory").value;
-        const amount = parseFloat(
-          document.getElementById("purposeAmount").value
-        );
-        const desc = document.getElementById("purposeDesc").value;
-
-        if (!day || day < 1 || day > 31) {
-          alert("Please enter a valid day (1-31)");
-          return;
-        }
-
-        if (isNaN(amount) || amount <= 0) {
-          alert("Please enter a valid amount");
-          return;
-        }
-
-        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
-        const dateKey = new Date(currentYear, currentMonth, day)
-          .toISOString()
-          .split("T")[0];
-
-        let record = records.find((r) => r.date === dateKey);
-        if (!record) {
-          record = {
-            date: dateKey,
-            expenses: [],
-          };
-          records.push(record);
-        }
-
-        record.expenses.push({
-          category: category,
-          amount: amount,
-          description: desc,
         });
-
-        localStorage.setItem("budgetRecords", JSON.stringify(records));
-
-        alert(
-          `Added ₹${amount} for ${category} on ${day} ${months[currentMonth]}`
-        );
-        document.getElementById("purposeDay").value = "";
-        document.getElementById("purposeAmount").value = "";
-        document.getElementById("purposeDesc").value = "";
-
-        // Refresh display
-        renderCalendar();
-        getMonthlySpending();
+      } else if (!reminderForDate) {
+        spendingHtml += "<div>No expenses recorded for this date.</div>";
       }
 
-      function changeMonth(diff) {
-        currentMonth += diff;
-        if (currentMonth > 11) {
-          currentMonth = 0;
-          currentYear++;
-        } else if (currentMonth < 0) {
-          currentMonth = 11;
-          currentYear--;
-        }
-        renderCalendar();
-        getMonthlySpending(); // Update monthly spending when changing month
+      const totalSpend = Object.values(spending).reduce(
+        (sum, val) => sum + val,
+        0
+      );
+      if (record.expenses.length > 0) {
+        spendingHtml += `<div><strong>Total Spending:</strong> ₹${totalSpend}</div>`;
       }
 
-      function showMonthDropdown(event) {
-        removeExistingDropdown();
-        const dropdown = document.createElement("div");
-        dropdown.className = "dropdown";
-        months.forEach((month, index) => {
-          const option = document.createElement("div");
-          option.innerText = month;
-          option.onclick = () => {
-            currentMonth = index;
-            renderCalendar();
-            getMonthlySpending(); // Update monthly spending when changing month
-            dropdown.remove();
-          };
-          dropdown.appendChild(option);
-        });
-        document.body.appendChild(dropdown);
-        positionDropdown(dropdown, event.target);
+      spendingDetails.innerHTML = spendingHtml;
+      emiReminder.style.display = spending.emi > 0 ? "block" : "none";
+
+      overlay.style.display = "block";
+      spendCard.style.display = "block";
+    }
+
+
+
+    function closeSpendCard() {
+      overlay.style.display = "none";
+      spendCard.style.display = "none";
+    }
+
+    function addPurposeToDate() {
+      const day = parseInt(document.getElementById("purposeDay").value);
+      const category = document.getElementById("purposeCategory").value;
+      const amount = parseFloat(
+        document.getElementById("purposeAmount").value
+      );
+      const desc = document.getElementById("purposeDesc").value;
+
+      if (!day || day < 1 || day > 31) {
+        alert("Please enter a valid day (1-31)");
+        return;
       }
 
-      function showYearDropdown(event) {
-        removeExistingDropdown();
-        const dropdown = document.createElement("div");
-        dropdown.className = "dropdown";
-        for (let y = 2000; y <= 2099; y++) {
-          const option = document.createElement("div");
-          option.innerText = y;
-          option.onclick = () => {
-            currentYear = y;
-            renderCalendar();
-            getMonthlySpending(); // Update monthly spending when changing year
-            dropdown.remove();
-          };
-          dropdown.appendChild(option);
-        }
-        document.body.appendChild(dropdown);
-        positionDropdown(dropdown, event.target);
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount");
+        return;
       }
 
-      function positionDropdown(dropdown, target) {
-        const rect = target.getBoundingClientRect();
-        dropdown.style.top = rect.bottom + 5 + "px";
-        dropdown.style.left = rect.left + "px";
+      const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+      const dateKey = new Date(currentYear, currentMonth, day)
+        .toISOString()
+        .split("T")[0];
+
+      let record = records.find((r) => r.date === dateKey);
+      if (!record) {
+        record = {
+          date: dateKey,
+          expenses: [],
+        };
+        records.push(record);
       }
 
-      function removeExistingDropdown() {
-        const existing = document.querySelector(".dropdown");
-        if (existing) existing.remove();
-      }
-
-      document.addEventListener("click", function (e) {
-        const dropdown = document.querySelector(".dropdown");
-        if (
-          dropdown &&
-          !dropdown.contains(e.target) &&
-          e.target !== monthLabel &&
-          e.target !== yearLabel
-        ) {
-          dropdown.remove();
-        }
+      record.expenses.push({
+        category: category,
+        amount: amount,
+        description: desc,
       });
 
-      // Initial render
-      // renderCalendar();
-      // getMonthlySpending();
-      // renderLocalStorageTable();
-      window.addEventListener('DOMContentLoaded', () => {
-  renderCalendar();
-  getMonthlySpending();
-  renderLocalStorageTable();
-});
+      localStorage.setItem("budgetRecords", JSON.stringify(records));
 
-      function renderLocalStorageTable() {
-        const tableBody = document.querySelector("#storageTable tbody");
-        tableBody.innerHTML = "";
+      alert(
+        `Added ₹${amount} for ${category} on ${day} ${months[currentMonth]}`
+      );
+      document.getElementById("purposeDay").value = "";
+      document.getElementById("purposeAmount").value = "";
+      document.getElementById("purposeDesc").value = "";
 
-        const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+      // Refresh display
+      renderCalendar();
+      getMonthlySpending();
+    }
 
-        records.forEach((record) => {
-          record.expenses.forEach((expense) => {
-            const row = document.createElement("tr");
+    function changeMonth(diff) {
+      currentMonth += diff;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      } else if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderCalendar();
+      getMonthlySpending(); // Update monthly spending when changing month
+    }
 
-            const dateCell = document.createElement("td");
-            dateCell.textContent = record.date;
-            row.appendChild(dateCell);
+    function showMonthDropdown(event) {
+      removeExistingDropdown();
+      const dropdown = document.createElement("div");
+      dropdown.className = "dropdown";
+      months.forEach((month, index) => {
+        const option = document.createElement("div");
+        option.innerText = month;
+        option.onclick = () => {
+          currentMonth = index;
+          renderCalendar();
+          getMonthlySpending(); // Update monthly spending when changing month
+          dropdown.remove();
+        };
+        dropdown.appendChild(option);
+      });
+      document.body.appendChild(dropdown);
+      positionDropdown(dropdown, event.target);
+    }
 
-            const categoryCell = document.createElement("td");
-            categoryCell.textContent = expense.category;
-            row.appendChild(categoryCell);
+    function showYearDropdown(event) {
+      removeExistingDropdown();
+      const dropdown = document.createElement("div");
+      dropdown.className = "dropdown";
+      for (let y = 2000; y <= 2099; y++) {
+        const option = document.createElement("div");
+        option.innerText = y;
+        option.onclick = () => {
+          currentYear = y;
+          renderCalendar();
+          getMonthlySpending(); // Update monthly spending when changing year
+          dropdown.remove();
+        };
+        dropdown.appendChild(option);
+      }
+      document.body.appendChild(dropdown);
+      positionDropdown(dropdown, event.target);
+    }
 
-            const amountCell = document.createElement("td");
-            amountCell.textContent = `₹${expense.amount}`;
-            row.appendChild(amountCell);
+    function positionDropdown(dropdown, target) {
+      const rect = target.getBoundingClientRect();
+      dropdown.style.top = rect.bottom + 5 + "px";
+      dropdown.style.left = rect.left + "px";
+    }
 
-            const descCell = document.createElement("td");
-            descCell.textContent = expense.description || "-";
-            row.appendChild(descCell);
+    function removeExistingDropdown() {
+      const existing = document.querySelector(".dropdown");
+      if (existing) existing.remove();
+    }
 
-            tableBody.appendChild(row);
-          });
+    document.addEventListener("click", function (e) {
+      const dropdown = document.querySelector(".dropdown");
+      if (
+        dropdown &&
+        !dropdown.contains(e.target) &&
+        e.target !== monthLabel &&
+        e.target !== yearLabel
+      ) {
+        dropdown.remove();
+      }
+    });
+
+    // Initial render
+    renderCalendar();
+    getMonthlySpending();
+    renderLocalStorageTable();
+    function renderLocalStorageTable() {
+      const tableBody = document.querySelector("#storageTable tbody");
+      tableBody.innerHTML = "";
+
+      const records = JSON.parse(localStorage.getItem("budgetRecords")) || [];
+
+      records.forEach((record) => {
+        record.expenses.forEach((expense) => {
+          const row = document.createElement("tr");
+
+          const dateCell = document.createElement("td");
+          dateCell.textContent = record.date;
+          row.appendChild(dateCell);
+
+          const categoryCell = document.createElement("td");
+          categoryCell.textContent = expense.category;
+          row.appendChild(categoryCell);
+
+          const amountCell = document.createElement("td");
+          amountCell.textContent = `₹${expense.amount}`;
+          row.appendChild(amountCell);
+
+          const descCell = document.createElement("td");
+          descCell.textContent = expense.description || "-";
+          row.appendChild(descCell);
+
+          tableBody.appendChild(row);
         });
+      });
+    }
+    function saveReminder() {
+      const dateInput = document.getElementById("reminder-date").value;
+      const [year, month, day] = dateInput.split("-");
+      const date = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+      const purpose = document
+        .getElementById("reminder-purpose")
+        .value.trim();
+
+      if (!date || !purpose) {
+        alert("⚠️ Please fill in both the date and purpose.");
+        return;
       }
-      function saveReminder() {
-        const dateInput = document.getElementById("reminder-date").value;
-        const [year, month, day] = dateInput.split("-");
-        const date = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-        const purpose = document
-          .getElementById("reminder-purpose")
-          .value.trim();
 
-        if (!date || !purpose) {
-          alert("⚠️ Please fill in both the date and purpose.");
-          return;
-        }
+      const reminder = { date, purpose };
+      let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
 
-        const reminder = { date, purpose };
-        let reminders = JSON.parse(localStorage.getItem("reminders")) || [];
-
-        if (reminders.some((r) => r.date === date)) {
-          alert("🔔 A reminder already exists for this date.");
-          return;
-        }
-
-        reminders.push(reminder);
-        localStorage.setItem("reminders", JSON.stringify(reminders));
-        alert(`✅ Reminder set for ${date} — ${purpose}`);
-       
-        document.getElementById("reminder-date").value = "";
-        document.getElementById("reminder-purpose").value = "";
-
-        // Refresh calendar after setting reminder
-        window.addEventListener("DOMContentLoaded", () => {
-  // Fix: Build records manually if budgetRecords is not found
-  let records = [];
-
-  if (localStorage.getItem("budgetRecords")) {
-    records = JSON.parse(localStorage.getItem("budgetRecords"));
-  } else {
-    const datedExpenses = JSON.parse(localStorage.getItem("datedExpense")) || [];
-    const expensesList = JSON.parse(localStorage.getItem("expenses")) || [];
-
-    records = datedExpenses.map((date, i) => ({
-      date: date,
-      expenses: JSON.parse(expensesList[i])
-    }));
-  }
-
-  // Store it in a global variable so other functions can use it
-  window.budgetRecords = records;
-
-  renderCalendar();
-  getMonthlySpending();
-  renderLocalStorageTable();
-});
-
-        renderCalendar();
+      if (reminders.some((r) => r.date === date)) {
+        alert("🔔 A reminder already exists for this date.");
+        return;
       }
-    </script>
-  </body>
+
+      reminders.push(reminder);
+      localStorage.setItem("reminders", JSON.stringify(reminders));
+      alert(`✅ Reminder set for ${date} — ${purpose}`);
+
+      document.getElementById("reminder-date").value = "";
+      document.getElementById("reminder-purpose").value = "";
+
+      // Refresh calendar after setting reminder
+      renderCalendar();
+    }
+
+
+
+    const sidebar = document.getElementById("sidebar");
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+
+  // Show sidebar when menu button is clicked
+  mobileMenuBtn.addEventListener("click", () => {
+    sidebar.classList.add("open");
+  });
+
+  // Close sidebar when 'X' button is clicked
+  closeSidebarBtn.addEventListener("click", () => {
+    sidebar.classList.remove("open");
+  });
+
+  // Optional: Close sidebar when clicking outside of it
+  document.addEventListener("click", (e) => {
+    if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+      sidebar.classList.remove("open");
+    }
+  });
+  </script>
+</body>
+
 </html>
-
-
-
-
