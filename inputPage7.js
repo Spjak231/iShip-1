@@ -86,6 +86,7 @@ if (date && purpose) {
 }
 
   calculateTotals();
+  alert("✅ Data saved Successfully!");
 }
 
 function addExpenseFromStorage(expense) {
@@ -308,13 +309,5 @@ const sidebar = document.getElementById("sidebar");
     }
   });
 
-  // function saveReminder(){
-  //   alert("✅ Reminder saved and Set Successfully!");
-  // }
-
-  // function saveToStorage(){
-  //   alert("✅ Data saved Successfully!");
-  // }
+  
 // on clicking reset all the details given in the page should reset ,,but that data in the local storage should
-
-
