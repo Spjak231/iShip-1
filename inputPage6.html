@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <meta charset="UTF-8" />
     <script src="inputPage7.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,9 +38,10 @@
         background-color: var(--bg);
         color: var(--text-dark);
         line-height: 1.6;
+        width: 100%;
       }
 
-      header {
+      /* header {
         background-color: var(--card-bg);
         padding: 1rem 2rem;
         text-align: center;
@@ -45,7 +50,7 @@
         font-weight: bold;
         letter-spacing: 0.5px;
         box-shadow: 0 2px 8px var(--shadow);
-      }
+      } */
 
       main {
         padding: 2rem 1rem;
@@ -64,9 +69,26 @@
         backface-visibility: hidden;
       }
 
+      button {
+        /*background-color: #4caf50;  Green */
+        /* color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px; */
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        /* background-color: #8f94fb; */
+      }
+
+      button:hover {
+        background-color: #b8bbf1; /* Darker green on hover */
+        transform: scale(1.05); /* Slight zoom on hover */
+      }
+
       h2 {
         margin-bottom: 1rem;
-        color: var(--primary);
+        color: #4c4cff;
         font-size: 1.4rem;
         /* border-bottom: 2px solid var(--primary); */
         padding-bottom: 4px;
@@ -100,7 +122,7 @@
 
       .expense-group {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.75rem; 
         align-items: flex-start;
         margin-bottom: 1rem;
         flex-wrap: wrap;
@@ -155,8 +177,10 @@
         background-color: var(--accent);
       }
 
-      .addIncome,.addSavings{
+      .addIncome,
+      .addSavings {
         margin-top: 1rem;
+        /* margin-left:1rem; */
       }
 
       .submit-btn:hover,
@@ -214,8 +238,6 @@
       }
 
       nav {
-        background: white;
-        box-shadow: rgba(0, 0, 0, 0.05) 0 0 10px 0;
         position: sticky;
         top: 0;
         z-index: 10;
@@ -316,140 +338,565 @@
         text-decoration: none;
         font-size: 0.95rem;
       }
+      .reset-button {
+        margin-top: 1rem;
+      }
+      button{
+        background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
+      }
+      nav {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      background: linear-gradient(
+          90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%
+        );
 
-      footer {
-  background-color: #000;
-  color: #fff;
-  padding: 50px 20px;
-}
+    }
 
-.footer-container {
-  max-width: 1200px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-}
+    .menueInNaveBar {
+      background: white;
+      /* color: black; */
+      /* background-color: white; */
+      box-shadow: 0px 5px 20px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 9999px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 10px;
+      padding: 0 50px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.footer-section h3 {
-  color: #e375ef;
-  margin-bottom: 15px;
-  font-size: 18px;
-}
+    .sidebarIcon {
+      display: none;
+    }
 
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      max-height: 56px;
+    }
 
-.footer-section ul li {
-  margin-bottom: 10px;
-}
+    .logo-img {
+      height: 95px;
+      max-width: 120px;
+      object-fit: contain;
+    }
 
-.footer-section ul li a {
-  text-decoration: none;
-  display: inline-block;
-  font-weight: 500;
-  background-color: whitesmoke;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: 0.3s ease;
-}
+    .menueInNaveBar ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      gap: 1.5rem;
+      /* color: black; */
+    }
 
-.footer-section ul li a:hover {
-  background-color: #dda6f6;
-  color: #000;
-}
+    .menueInNaveBar ul li a {
+      color: black;
+      text-decoration: none;
+      padding: 0.4rem 0.25rem;
+      border-radius: 0.35rem;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+      font-weight: 500;
+    }
 
-.newsletter input[type="email"] {
-  padding: 8px;
-  width: 100%;
-  border-radius: 4px;
-  border: none;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
+    .menueInNaveBar ul li a:hover,
+    .menueInNaveBar ul li a.active {
+      background: #f6f6ff;
+      color: #4c4cff;
+    }
 
-.newsletter button {
-  padding: 10px;
-  width: 100%;
-  border: none;
-  background-color: #e375ef;
-  color: #000;
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-.newsletter button:hover {
-  background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
-}
+    .btn-primary {
+      background: #000000;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 0.5rem 1.5rem;
+      transition: background 0.3s ease;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-.social-links a {
-  text-decoration: none;
-  font-size: 16px;
-  margin-right: 15px;
-  background-color: white;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: 0.3s ease;
-}
+    .btn-primary:hover {
+      background: #222222;
+    }
 
-.footer-bottom {
-  text-align: center;
-  color: #aaa;
-  font-size: 13px;
-  border-top: 1px solid #333;
-  margin-top: 40px;
-  padding-top: 15px;
-}
+    .btn-outline-purple {
+      background: #8f94fb;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 0.4rem 1.2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-@media (max-width: 600px) {
+    .btn-outline-purple:hover {
+      background: #7269f7;
+    }
 
-  .newsletter button,
-  .newsletter input[type="email"] {
-    font-size: 14px;
+    .btn-grad {
+      background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
+      background-size: 200% auto;
+      background-position: left center;
+      width: 160px;
+      height: 50px;
+      margin: 2rem auto;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.5;
+      text-transform: uppercase;
+      transition: background-position 0.5s ease-in-out;
+      color: white;
+      box-shadow: 0 0 20px #eee;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .btn-grad:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* === MOBILE MENU LOGIC === */
+
+@media (max-width: 900px) {
+  .menueInNaveBar ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    background-color: #ffffff;
+    width: 100%;
+    padding: 1rem;
+    z-index: 999;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+ 
+  .logo-img {
+    display: block !important; /* Ensure logo shows on small screens */
+  }
+
+  .sidebarIcon {
+    display: block;
+    font-size: 2rem;
+    cursor: pointer;
   }
 }
+
+@media (min-width: 901px) {
+  .menueInNaveBar ul {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .sidebarIcon {
+    display: none !important;
+  }
+}
+#menuToggleBtn {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #000; /* or white, depending on your background */
+}
+
+/* Hide the menu button on large screens */
+#mobileMenu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: black; /* black menu bar */
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  z-index: 10;
+}
+
+#mobileMenu.show {
+  display: flex;
+}
+
+
+
+    /* ======= FOOTER ======= */
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 50px 80px;
+      width: 100%;
+    }
+
+    .footer-container_1 {
+      max-width: 1440px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+      gap: 30px;
+    }
+    .footer-container_2 {
+        display: none;
+    }
+
+    .footer-section h3 {
+      color: #e375ef;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      font-weight: 500;
+      background-color: whitesmoke;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+      background-color: #dda6f6;
+      color: #000;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 8px;
+      width: 100%;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .newsletter button {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      background-color: #e375ef;
+      color: #000;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .newsletter button:hover {
+      background: linear-gradient(90deg, #d4d9ff 0%, #e5cef0 50%, #dbdff2 100%);
+    }
+
+    .social-links a {
+      text-decoration: none;
+      font-size: 16px;
+      margin-right: 15px;
+      background-color: white;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: 0.3s ease;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+      border-top: 1px solid #333;
+      margin-top: 40px;
+      padding-top: 15px;
+    }
+
+    /* ======= MEDIA QUERIES ======= */
+    @media only screen and (max-width: 600px) {
+      .menueInNaveBar ul {
+        display: none;
+      }
+
+      .menueInNaveBar {
+        padding-left: 30px;
+        padding-right: 20px;
+      }
+
+      .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+      }
+
+      .auth-buttons {
+        margin-left: 20px;
+      }
+
+      .logo-img {
+        display: none;
+      }
+
+      .footer-container_1 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 40px;
+      }
+
+      footer {
+        padding: 40px 20px;
+      }
+    }
+
+    @media only screen and (min-width: 601px) and (max-width: 900px) {
+      .menueInNaveBar ul {
+        display: none;
+      }
+
+      .sidebarIcon {
+        display: inline-block;
+        font-size: 2rem;
+      }
+
+      .auth-buttons {
+        margin-left: 200px;
+      }
+    }
+    /* ===== Smartphones (portrait and landscape) ===== */
+@media only screen and (max-width: 600px) {
+    .footer-container_1 {
+        display: none;
+    }
+
+    .footer-container_2 {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    footer {
+        padding: 50px 20px;
+    }
+}
+
+/* ===== Tablets (portrait and landscape) ===== */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    /* No additional changes specifically to the footer in this range */
+}
+button{
+  background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%,#4776E6 100%);
+}
+
+/* ========== Sidebar Base ========== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px; /* Hidden by default */
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(170deg, #4f46e5 0%, #7c3aed 100%);
+  color: #fff;
+  box-shadow: 4px 0 16px rgba(44, 16, 112, 0.08);
+  transition: left 0.3s cubic-bezier(.7, .3, .3, 1);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.open {
+  left: 0; /* Slide into view */
+}
+
+/* ========== Sidebar Header ========== */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+/* ========== Logo Inside Sidebar ========== */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-logo img {
+  box-shadow: 0px 0px 5px 0px #b7b7b7;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255);
+  object-fit: cover;
+}
+
+.sidebar-logo span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+/* ========== Menu Items ========== */
+.sidebar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sidebar-menu a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.99rem;
+  padding: 10px 20px;
+  gap: 13px;
+  transition: background .18s, padding .18s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background: rgba(255, 255, 255, 0.13);
+  border-left: 3px solid #fff;
+  padding-left: 40px;
+}
+
+/* ========== Divider Between Sections ========== */
+.sidebar-menu .sidebar-divider {
+  height: 1px;
+  margin: 14px 0;
+  background: rgba(255, 255, 255, 0.13);
+  border: none;
+}
+
+/* ========== Close Button ========== */
+.sidebar .close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 7px;
+  transition: color .23s;
+}
+
+.sidebar .close-btn:hover {
+  color: #ddd;
+}
+  
     </style>
   </head>
   <body>
     <!-- <header> Budget Buddy - Input Page</header> -->
+    <header>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+          <div class="sidebar-logo">
+              <img src="logoForSidebarmenue.png" alt="Budget Buddy logo">
+              <span>Budget Buddy</span>
+          </div>
+          <button class="close-btn" id="closeSidebarBtn" aria-label="Close sidebar">&times;</button>
+      </div>
+      <div class="sidebar-menu">
+          <a href="./index.html" class=""><i class="fas fa-home"></i>Home</a>
+          <a href="./inputPage6.html"><i class="fas fa-calendar-alt"></i>Input</a>
+          <a href="./calendarfinal.html"><i class="fas fa-lightbulb"></i>Calender</a>
+          <a href="./goalPage.html"><i class="fas fa-chart-line"></i>Goal</a>
+          <a href="./graphpage.html"><i class="fas fa-wallet"></i>Graph</a>
+          
+          
+      </div>
+  </aside>
+  <nav>
+    <div class="menueInNaveBar">
+      <div class="sidebarIcon" id="mobileMenuBtn">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+  
+      <a href="#" class="logo">
+        <img
+          src="Screenshot_2025-07-22_211511-removebg-preview&#46;png"
+          class="logo-img"
+        />
+      </a>
+      <ul>
+        <li><a href="./index.html" class="active">Home</a></li>
+       
+        <li><a href="./inputPage6.html">Input</a></li>
+        <li><a href="./calendarfinal.html">Calender</a></li>
+        <li><a href="./goalPage.html">Goal</a></li>
+        <li><a href="./graphpage.html">Graph</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="index.html" class="btn-primary">Log Out</a>
+      </div>
+    </div>
+  </nav>  
+  </header>
 
-   <nav>
-        <div class="menueInNaveBar">
-
-            <div class="sidebarIcon" id="mobileMenuBtn">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-
-            <a href="#" class="logo">
-                <img src="Screenshot_2025-07-22_211511-removebg-preview&#46;png" class="logo-img">
-            </a>
-            <ul>
-                <li><a href="./index.html" class="active">Home</a></li>
-                <li><a href="./goalPage.html">Goal</a></li>
-                <li><a href="./graphpage.html">Graph</a></li>
-                <li><a href="./inputPage6.html">Input</a></li>
-                <li><a href="./calendarfinal.html">Calender</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <a href="index.html" class="btn-login">Log out</a>
-            </div>
-
-            <div class="profile-icon hidden" id="profileIcon">
-                <a href="profile.html" title="Profile">
-                    <i class="fas fa-user-circle fa-2x"></i>
-                </a>
-            </div>
-
-        </div>
-    </nav>
     <main>
+      <h1
+        style="
+          text-align: center;
+          font-size: 2rem;
+          color: #4c4cff;
+          margin-top: 2rem;
+        "
+      >
+        Track Your Budget - Input Your Income, Savings & Daily Expenses
+      </h1>
+
       <div class="card">
         <h2>Enter Income & Savings Goal</h2>
         <label for="income">Monthly Income (₹)</label>
@@ -459,13 +906,17 @@
         <input type="number" id="savings" placeholder="e.g., 10000" required />
 
         <div class="income-actions">
-          <button class="addIncome" onclick="addIncomeAmount()">Add Income</button>
-          <button class="addSavings" onclick="addSavingsAmount()">Add Savings</button>
+          <button class="addIncome" onclick="addIncomeAmount()">
+            Add Income
+          </button>
+          <button class="addSavings" onclick="addSavingsAmount()">
+            Add Savings
+          </button>
         </div>
         <div class="income-actions">
-        <button class="save-btn-main" onclick="resetFixedBudget()">
-          Reset
-        </button>
+          <button class="reset-button" onclick="resetFixedBudget()">
+            Reset
+          </button>
         </div>
       </div>
 
@@ -550,51 +1001,141 @@
     </main>
 
     <footer>
-      <div class="footer-container">
+    <div class="footer-container_1">
         <div class="footer-section">
-          <h3>Navigation</h3>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Planner</a></li>
-            <li><a href="#">Tips</a></li>
-            <li><a href="#">Expense Tracker</a></li>
-            <li><a href="#">Reports</a></li>
-          </ul>
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="#"
+                        onclick="showPopup('Home', 'Welcome to Budget Buddy – your personal financial assistant!')">Home</a>
+                </li>
+                <li><a href="#"
+                        onclick="showPopup('Planner', 'Plan your monthly and yearly budget with smart tools and tips.')">Planner</a>
+                </li>
+                <li><a href="#"
+                        onclick="showPopup('Tips', 'Browse budgeting tips, tricks, and money-saving strategies.')">Tips</a>
+                </li>
+                <li><a href="#"
+                        onclick="showPopup('Expense Tracker', 'Track your spending habits and categorize expenses efficiently.')">Expense
+                        Tracker</a></li>
+                <li><a href="#"
+                        onclick="showPopup('Reports', 'View summaries, visual charts, and spending analytics.')">Reports</a>
+                </li>
+            </ul>
         </div>
 
         <div class="footer-section">
-          <h3>Support</h3>
-          <ul>
-            <li><a href="#">Help Center</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Community Forum</a></li>
-          </ul>
+            <h3>Support</h3>
+            <ul>
+                <li><a href="#"
+                        onclick="showPopup('Help Center', 'Find FAQs, documentation, and self-help guides.')">Help
+                        Center</a></li>
+                <li><a href="#"
+                        onclick="showPopup('Contact Us', 'Need help? Reach out to our support team.')">Contact
+                        Us</a></li>
+                <li><a href="#"
+                        onclick="showPopup('Community Forum', 'Join discussions, share tips, and get peer advice.')">Community
+                        Forum</a></li>
+            </ul>
         </div>
 
         <div class="footer-section">
-          <h3>Legal</h3>
-          <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Disclaimer</a></li>
-          </ul>
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="#"
+                        onclick="showPopup('Privacy Policy', 'Understand how we collect and protect your data.')">Privacy
+                        Policy</a></li>
+                <li><a href="#"
+                        onclick="showPopup('Terms & Conditions', 'Review the rules and agreements for using our service.')">Terms
+                        & Conditions</a></li>
+                <li><a href="#"
+                        onclick="showPopup('Disclaimer', 'Read the disclaimer about financial advice.')">Disclaimer</a>
+                </li>
+            </ul>
         </div>
 
         <div class="footer-section newsletter">
-          <h3>Stay Updated</h3>
-          <input type="email" placeholder="Your email" />
-          <button>Get started</button>
-          <div class="social-links" style="margin-top: 15px">
-            <p style="margin-bottom: 8px">Follow us:</p>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-          </div>
+            <h3>Stay Updated</h3>
+            <input type="email" placeholder="Your email">
+            <button>Get started</button>
+            <div class="social-links" style="margin-top: 15px;">
+                <p style="margin-bottom: 8px;">Follow us:</p>
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        &copy;2025 Budget Buddy Inc. All rights reserved.
-      </div>
-    </footer>
+    </div>
+
+    <div class="footer-container_2">
+        <div class="footer_section_first">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Home', 'Welcome to Budget Buddy – your personal financial assistant!')">Home</a>
+                    </li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Planner', 'Plan your monthly and yearly budget with smart tools and tips.')">Planner</a>
+                    </li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Tips', 'Browse budgeting tips, tricks, and money-saving strategies.')">Tips</a>
+                    </li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Expense Tracker', 'Track your spending habits and categorize expenses efficiently.')">Expense
+                            Tracker</a></li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Reports', 'View summaries, visual charts, and spending analytics.')">Reports</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Help Center', 'Find FAQs, documentation, and self-help guides.')">Help
+                            Center</a></li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Contact Us', 'Need help? Reach out to our support team.')">Contact
+                            Us</a>
+                    </li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Community Forum', 'Join discussions, share tips, and get peer advice.')">Community
+                            Forum</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Privacy Policy', 'Understand how we collect and protect your data.')">Privacy
+                            Policy</a></li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Terms & Conditions', 'Review the rules and agreements for using our service.')">Terms
+                            & Conditions</a></li>
+                    <li><a href="javascript:void(0)"
+                            onclick="showPopup('Disclaimer', 'Read the disclaimer about financial advice.')">Disclaimer</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section newsletter">
+                <h3>Stay Updated</h3>
+                <input type="email" placeholder="Your email">
+                <button>Get started</button>
+                <div class="social-links" style="margin-top: 15px;">
+                    <p style="margin-bottom: 8px;">Follow us:</p>
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2025 Budget Buddy Inc&#46; All rights reserved&#46;
+    </div>
+ </footer>
   </body>
 </html>
