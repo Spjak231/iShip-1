@@ -86,7 +86,6 @@ if (date && purpose) {
 }
 
   calculateTotals();
-  alert("✅ Data saved Successfully!");
 }
 
 function addExpenseFromStorage(expense) {
@@ -308,6 +307,4 @@ const sidebar = document.getElementById("sidebar");
       sidebar.classList.remove("open");
     }
   });
-
-  
 // on clicking reset all the details given in the page should reset ,,but that data in the local storage should
