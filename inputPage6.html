@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <meta charset="UTF-8" />
     <script src="inputPage7.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budget Buddy - Input Page</title>
@@ -38,19 +38,9 @@
         background-color: var(--bg);
         color: var(--text-dark);
         line-height: 1.6;
-        width: 100%;
       }
 
-      /* header {
-        background-color: var(--card-bg);
-        padding: 1rem 2rem;
-        text-align: center;
-        color: white;
-        font-size: 1.75rem;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-        box-shadow: 0 2px 8px var(--shadow);
-      } */
+     
 
       main {
         padding: 2rem 1rem;
@@ -69,26 +59,9 @@
         backface-visibility: hidden;
       }
 
-      button {
-        /*background-color: #4caf50;  Green */
-        /* color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 16px; */
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        /* background-color: #8f94fb; */
-      }
-
-      button:hover {
-        background-color: #b8bbf1; /* Darker green on hover */
-        transform: scale(1.05); /* Slight zoom on hover */
-      }
-
       h2 {
         margin-bottom: 1rem;
-        color: #4c4cff;
+        color: var(--primary);
         font-size: 1.4rem;
         /* border-bottom: 2px solid var(--primary); */
         padding-bottom: 4px;
@@ -122,7 +95,7 @@
 
       .expense-group {
         display: flex;
-        gap: 0.75rem; 
+        gap: 0.75rem;
         align-items: flex-start;
         margin-bottom: 1rem;
         flex-wrap: wrap;
@@ -177,10 +150,8 @@
         background-color: var(--accent);
       }
 
-      .addIncome,
-      .addSavings {
+      .addIncome,.addSavings{
         margin-top: 1rem;
-        /* margin-left:1rem; */
       }
 
       .submit-btn:hover,
@@ -238,6 +209,115 @@
       }
 
       nav {
+        /* background: white;
+        box-shadow: rgba(0, 0, 0, 0.05) 0 0 10px 0; */
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-radius: 9999px;
+        max-width: 1080px;
+        margin: 1rem auto;
+        padding: 0 1.5rem;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+         background: linear-gradient(
+          90deg,
+          #d4d9ff 0%,
+          #e5cef0 50%,
+          #dbdff2 100%
+        );
+      }
+      nav .logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        max-height: 56px;
+      }
+
+      .logo-img {
+        height: 40px; /* Controls logo size */
+        max-width: 120px; /* Prevents overly wide logos */
+        object-fit: contain; /* Maintains aspect ratio */
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        gap: 1.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      nav ul li {
+        position: relative;
+      }
+
+      nav ul li a {
+        color: black;
+        text-decoration: none;
+        padding: 0.4rem 0.25rem;
+        border-radius: 0.35rem;
+        transition: background-color 0.3s ease;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        background: #f6f6ff;
+        color: #4c4cff;
+      }
+
+      nav ul li .dropdown {
+        cursor: pointer;
+      }
+
+      nav ul li .dropdown-content {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        padding: 0.5rem 0;
+        min-width: 140px;
+        display: none;
+        flex-direction: column;
+        z-index: 20;
+      }
+
+      nav ul li:hover .dropdown-content {
+        display: flex;
+      }
+
+      nav ul li .dropdown-content a {
+        padding: 0.5rem 1rem;
+        font-weight: 400;
+        color: #333;
+      }
+
+      nav ul li .dropdown-content a:hover {
+        background: #e4e4ff;
+        color: #4c4cff;
+      }
+
+      /* Login / Signup buttons grouping */
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .btn-login {
+        font-weight: 600;
+        color: black;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+       nav {
         position: sticky;
         top: 0;
         z-index: 10;
@@ -839,7 +919,8 @@ button{
   </head>
   <body>
     <!-- <header> Budget Buddy - Input Page</header> -->
-    <header>
+
+ <header>
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
           <div class="sidebar-logo">
@@ -886,17 +967,6 @@ button{
   </header>
 
     <main>
-      <h1
-        style="
-          text-align: center;
-          font-size: 2rem;
-          color: #4c4cff;
-          margin-top: 2rem;
-        "
-      >
-        Track Your Budget - Input Your Income, Savings & Daily Expenses
-      </h1>
-
       <div class="card">
         <h2>Enter Income & Savings Goal</h2>
         <label for="income">Monthly Income (₹)</label>
@@ -906,17 +976,13 @@ button{
         <input type="number" id="savings" placeholder="e.g., 10000" required />
 
         <div class="income-actions">
-          <button class="addIncome" onclick="addIncomeAmount()">
-            Add Income
-          </button>
-          <button class="addSavings" onclick="addSavingsAmount()">
-            Add Savings
-          </button>
+          <button class="addIncome" onclick="addIncomeAmount()">Add Income</button>
+          <button class="addSavings" onclick="addSavingsAmount()">Add Savings</button>
         </div>
         <div class="income-actions">
-          <button class="reset-button" onclick="resetFixedBudget()">
-            Reset
-          </button>
+        <button class="save-btn-main" onclick="resetFixedBudget()">
+          Reset
+        </button>
         </div>
       </div>
 
@@ -1000,7 +1066,7 @@ button{
       </center>
     </main>
 
-    <footer>
+     <footer>
     <div class="footer-container_1">
         <div class="footer-section">
             <h3>Navigation</h3>
@@ -1139,4 +1205,3 @@ button{
  </footer>
   </body>
 </html>
-
